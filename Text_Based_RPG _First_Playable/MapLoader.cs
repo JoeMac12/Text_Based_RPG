@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Map
+namespace Text_Based_RPG_First_Playable
 {
     internal class MapLoader
     {
