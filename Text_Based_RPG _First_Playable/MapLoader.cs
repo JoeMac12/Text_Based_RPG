@@ -13,8 +13,9 @@ namespace Text_Based_RPG_First_Playable
         private int mapWidth;
         private int mapHeight;
 
-        public MapLoader()
+        public MapLoader(string fileName)
         {
+            LoadMap(fileName);
         }
 
         public void LoadMap(string fileName)
@@ -33,8 +34,39 @@ namespace Text_Based_RPG_First_Playable
             }
         }
 
-        public void DisplayMap()
+        public void DisplayMap((int x, int y) playerPosition, (int x, int y) enemyPosition, ConsoleColor playerColor, ConsoleColor enemyColor)
         {
+            Console.Clear();
+            DrawBorder();
+
+            for (int i = 0; i < mapHeight; i++)
+            {
+                Console.Write("|");
+
+                for (int j = 0; j < mapWidth; j++)
+                {
+                    if (i == playerPosition.y && j == playerPosition.x)
+                    {
+                        Console.ForegroundColor = playerColor;
+                        Console.Write('█');
+                    }
+                    else if (i == enemyPosition.y && j == enemyPosition.x)
+                    {
+                        Console.ForegroundColor = enemyColor;
+                        Console.Write('█');
+                    }
+                    else
+                    {
+                        SetTextColor(map[i, j]);
+                        Console.Write(map[i, j]);
+                    }
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine("|");
+            }
+
+            DrawBorder();
         }
 
         private void DrawBorder()
