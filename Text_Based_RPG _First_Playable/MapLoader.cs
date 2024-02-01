@@ -18,7 +18,7 @@ namespace Text_Based_RPG_First_Playable
             LoadMap(fileName);
         }
 
-        public void LoadMap(string fileName) // Reads the lines of the loaded map file
+        public void LoadMap(string fileName)
         {
             string[] lines = File.ReadAllLines(fileName);
             mapHeight = lines.Length;
@@ -34,7 +34,7 @@ namespace Text_Based_RPG_First_Playable
             }
         }
 
-        public void DisplayMap((int x, int y) playerPosition, (int x, int y) enemyPosition, ConsoleColor playerColor, ConsoleColor enemyColor) // Displays all the content of the game map
+        public void DisplayMap((int x, int y) playerPosition, (int x, int y) enemyPosition, ConsoleColor playerColor, ConsoleColor enemyColor)
         {
             Console.Clear();
             DrawBorder();
@@ -69,66 +69,17 @@ namespace Text_Based_RPG_First_Playable
             DrawBorder();
         }
 
-        public void DrawBorder() // Draws a border around the map
+        private void DrawBorder()
         {
-            Console.Write("+");
-            for (int i = 0; i < mapWidth; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine("+");
         }
 
-        public bool WithinBounds(int x, int y) // Used for checking if the player is within the map bounds
+        public bool WithinBounds(int x, int y)
         {
-            return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
         }
 
-        public void SetTextColor(char textType) // Sets the color for each map tile type
+        private void SetTextColor(char textType)
         {
-            switch (textType)
-            {
-                case '.':
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    break;
-                case '~':
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    break;
-                case '#':
-                case '|':
-                case '-':
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    break;
-                case 'Θ':
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    break;
-                default:
-                    Console.ResetColor();
-                    break;
-            }
-        }
-
-        //  Simple way to check for what is at a certain location or to change a tile to another type
-        //  Only used for gold atm
-
-        public char GetMapTile(int x, int y)
-        {
-            if (WithinBounds(x, y))
-            {
-                return map[y, x];
-            }
-            else
-            {
-                return ' ';
-            }
-        }
-
-        public void UpdateMapTile(int x, int y, char newTile)
-        {
-            if (WithinBounds(x, y))
-            {
-                map[y, x] = newTile;
-            }
         }
     }
 }
+
