@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MapClass;
+using Map;
 
 namespace Text_Based_RPG__First_Playable
 {
@@ -12,7 +12,7 @@ namespace Text_Based_RPG__First_Playable
     {
         static void Main(string[] args) // Main call
         {
-            Map mapArea = new Map("mapArea.txt");
+            MapLoader Map = new MapLoader("mapArea.txt");
             Console.ReadKey(true);
         }
     }
