@@ -11,10 +11,6 @@ namespace Text_Based_RPG__First_Playable
     {
         static void Main(string[] args) // Main call
         {
-            Map mapArea = new Map("mapArea.txt");
-            Console.ReadKey(true);
-
-            mapArea.DisplayMap();
         }
     }
 }
