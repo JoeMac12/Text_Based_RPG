@@ -29,6 +29,11 @@ internal class Player
         {
             HasMoved = true;
             Position = (newX, newY);
+
+            if (map.map[newY, newX] == '~')
+            {
+                TakeDamage(1);
+            }
         }
         else
         {
