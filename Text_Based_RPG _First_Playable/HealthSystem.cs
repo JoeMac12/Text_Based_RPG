@@ -13,8 +13,14 @@ internal class HealthSystem
         Health = initialHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount)
     {
-        Health = Math.Max(0, Health - damage);
+        Health -= amount;
+        if (Health < 0) Health = 0; // Adding this incase health somehow becomes -1
+    }
+
+    public void Heal(int amount) // Unused atm
+    {
+        Health += amount;
     }
 }
