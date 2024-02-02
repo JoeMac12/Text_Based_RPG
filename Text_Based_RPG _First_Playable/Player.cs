@@ -10,21 +10,29 @@ internal class Player
     private HealthSystem healthSystem;
     private Map map;
 
+    public bool HasMoved { get; set; }
+
     public Player(Map map, int initialHealth, int startX, int startY)
     {
         this.map = map;
         Position = (startX, startY);
         healthSystem = new HealthSystem(initialHealth);
+        HasMoved = false;
     }
 
-    public void Move(int deltaX, int deltaY)
+    public void Move(int moveX, int moveY)
     {
-        int newX = Position.x + deltaX;
-        int newY = Position.y + deltaY;
+        int newX = Position.x + moveX;
+        int newY = Position.y + moveY;
 
         if (map.WithinBounds(newX, newY) && CanMove(newX, newY))
         {
+            HasMoved = true;
             Position = (newX, newY);
+        }
+        else
+        {
+            HasMoved = false;
         }
     }
 

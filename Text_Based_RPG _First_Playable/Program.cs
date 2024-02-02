@@ -28,7 +28,14 @@ namespace Text_Based_RPG__First_Playable
                 map.DisplayMap(player.Position, enemy.Position, enemy.Health);
                 hud.Display();
 
+                player.HasMoved = false;
+
                 PlayerMovement(player, map);
+
+                if (player.HasMoved && enemy.Health > 0)
+                {
+                    enemy.MoveRandomly();
+                }
 
                 goldCollection.CheckForGold(player.Position.x, player.Position.y);
 
