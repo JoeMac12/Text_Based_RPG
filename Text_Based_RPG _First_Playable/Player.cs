@@ -20,7 +20,7 @@ internal class Player
         HasMoved = false;
     }
 
-    public void Move(int moveX, int moveY)
+    public void Move(int moveX, int moveY, HUD hud)
     {
         int newX = Position.x + moveX;
         int newY = Position.y + moveY;
@@ -33,6 +33,7 @@ internal class Player
             if (map.map[newY, newX] == '~')
             {
                 TakeDamage(1);
+                hud.SetActionMessage("You stepped in acid!");
             }
         }
         else

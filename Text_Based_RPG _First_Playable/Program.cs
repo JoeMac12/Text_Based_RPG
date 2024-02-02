@@ -30,7 +30,7 @@ namespace Text_Based_RPG__First_Playable
 
                 player.HasMoved = false;
 
-                PlayerMovement(player, map);
+                PlayerMovement(player, map, hud);
 
                 if (player.HasMoved && enemy.Health > 0)
                 {
@@ -46,7 +46,7 @@ namespace Text_Based_RPG__First_Playable
             Console.ReadKey();
         }
 
-        static void PlayerMovement(Player player, Map map) // Put the player controls here cause it somehow works better?
+        static void PlayerMovement(Player player, Map map, HUD hud) // Put the player controls here cause it somehow works better?
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             int moveX = 0, moveY = 0;
@@ -71,7 +71,7 @@ namespace Text_Based_RPG__First_Playable
                     break;
             }
 
-            player.Move(moveX, moveY);
+            player.Move(moveX, moveY, hud);
         }
     }
 }
