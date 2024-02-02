@@ -16,7 +16,7 @@ namespace Text_Based_RPG__First_Playable
             Player player = new Player(map, 20, map.mapWidth - 78, map.mapHeight - 19);
             Enemy enemy = new Enemy(map, 10, map.mapWidth - 50, map.mapHeight - 3);
 
-            HUD hud = new HUD(player);
+            HUD hud = new HUD(player, enemy);
             GoldCollection goldCollection = new GoldCollection(map, hud);
 
             GameState gameState = new GameState(player, enemy, goldCollection);
