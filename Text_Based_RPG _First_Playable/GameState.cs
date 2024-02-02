@@ -4,26 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class GameState
+internal class GameState // Initialize 
 {
     private Player player;
     private GoldCollection goldCollection;
     private bool isGameOver;
 
-    public GameState(Player player, Enemy enemy, GoldCollection goldCollection)
+    public GameState(Player player, Enemy enemy, GoldCollection goldCollection) // Main State
     {
         this.player = player;
         this.goldCollection = goldCollection;
-        this.isGameOver = false;
     }
 
-    public void Update()
+    public void Update() // Updates after each player input
     {
         CheckWinCondition();
         CheckGameOver();
     }
 
-    private void CheckWinCondition()
+    private void CheckWinCondition() // If the player wins
     {
         if (goldCollection.GoldScore >= 10)
         {
@@ -36,7 +35,7 @@ internal class GameState
         }
     }
 
-    private void CheckGameOver()
+    private void CheckGameOver() // If the player dies
     {
         if (player.Health <= 0)
         {

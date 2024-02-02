@@ -4,32 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class HUD
+internal class HUD // Initialize 
 {
     private Player player;
     private Enemy enemy;
     private int goldScore;
     private string actionMessage;
 
-    public HUD(Player player, Enemy enemy)
+    public HUD(Player player, Enemy enemy) // Player health / Enemy health
     {
         this.player = player;
         this.enemy = enemy;
-        this.goldScore = 0;
-        this.actionMessage = "";
     }
 
-    public void UpdateGoldScore(int score)
+    public void UpdateGoldScore(int score) // Update score when picking up gold
     {
         goldScore = score;
     }
 
-    public void SetActionMessage(string message)
+    public void SetActionMessage(string message) // Simple message system for telling the player what happend
     {
         actionMessage = message;
     }
 
-    public void Display()
+    public void Display() // Main info display
     {
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Green;
