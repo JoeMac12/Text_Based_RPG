@@ -66,6 +66,7 @@ internal class Enemy // Initialize
         if (healthSystem.Health <= 0)
         {
             hud.SetActionMessage("Enemy has died");
+            Position = (-1, -1); // Move off map
         }
     }
 
