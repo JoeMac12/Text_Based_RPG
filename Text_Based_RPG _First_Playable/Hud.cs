@@ -19,7 +19,7 @@ internal class HUD
 
     public void UpdateGoldScore(int score)
     {
-        goldScore += score;
+        goldScore = score;
     }
 
     public void SetActionMessage(string message)

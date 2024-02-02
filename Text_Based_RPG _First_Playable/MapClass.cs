@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 internal class Map
 {
     public char[,] map;
-    public int mapHeight;
-    public int mapWidth;
+    public int mapHeight { get; private set; }
+    public int mapWidth { get; private set; }
 
     public Map(string fileName)
     {
@@ -76,7 +76,7 @@ internal class Map
         Console.WriteLine("+");
     }
 
-    private bool WithinBounds(int x, int y)
+    public bool WithinBounds(int x, int y)
     {
         return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
     }

@@ -43,8 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="GoldCollection.cs" />
+    <Compile Include="HealthSystem.cs" />
+    <Compile Include="Hud.cs" />
     <Compile Include="MapClass.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
