@@ -20,20 +20,29 @@ internal class Player
         HasMoved = false;
     }
 
-    public void Move(int moveX, int moveY, HUD hud)
+    public void Move(int moveX, int moveY, HUD hud, Enemy enemy)
     {
         int newX = Position.x + moveX;
         int newY = Position.y + moveY;
 
         if (map.WithinBounds(newX, newY) && CanMove(newX, newY))
         {
-            HasMoved = true;
-            Position = (newX, newY);
-
-            if (map.map[newY, newX] == '~')
+            if (newX == enemy.Position.x && newY == enemy.Position.y)
             {
-                TakeDamage(1);
-                hud.SetActionMessage("You stepped in acid!");
+                Attack(enemy);
+                hud.SetActionMessage("You dealt 1 damage to enemy");
+                HasMoved = true;
+            }
+            else
+            {
+                HasMoved = true;
+                Position = (newX, newY);
+
+                if (map.map[newY, newX] == '~')
+                {
+                    TakeDamage(1);
+                    hud.SetActionMessage("You stepped in acid!"); 
+                }
             }
         }
         else

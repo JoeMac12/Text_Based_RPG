@@ -19,7 +19,7 @@ internal class Enemy
         random = new Random();
     }
 
-    public void MoveRandomly()
+    public void MoveRandomly(Player player)
     {
         int direction = random.Next(4);
         int x = 0, y = 0;
@@ -37,7 +37,14 @@ internal class Enemy
 
         if (map.WithinBounds(newX, newY) && CanMove(newX, newY))
         {
-            Position = (newX, newY);
+            if (newX == player.Position.x && newY == player.Position.y)
+            {
+                Attack(player);
+            }
+            else
+            {
+                Position = (newX, newY);
+            }
         }
     }
 
