@@ -9,44 +9,41 @@ namespace Text_Based_RPG__First_Playable
 {
     internal class Program
     {
-        static void Main(string[] args) // Main 
+        static void Main(string[] args) // Initialize 
         {
             Map map = new Map("mapArea.txt");
-
-            Player player = new Player(map, 20, map.mapWidth - 78, map.mapHeight - 19);
-            Enemy enemy = new Enemy(map, 10, map.mapWidth - 50, map.mapHeight - 3);
-
+            Player player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19);
+            Enemy enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 50, startY: map.mapHeight - 3);
             HUD hud = new HUD(player, enemy);
             GoldCollection goldCollection = new GoldCollection(map, hud);
-
             GameState gameState = new GameState(player, enemy, goldCollection);
 
-            while (!gameState.IsGameOver) // Run main game loop untill game over is true
+            while (!gameState.IsGameOver) // Main game loop
             {
-                Console.Clear(); // Simple clear screen for now
-
-                map.DisplayMap(player.Position, enemy.Position, enemy.Health);
+                Console.Clear();
+                
+                map.DisplayMap(player.Position, enemy.Position, enemy.Health); // Display game map
                 hud.Display();
 
-                player.HasMoved = false;
+                player.HasMoved = false; // Set to false at initalize
 
-                PlayerMovement(player, map, hud, enemy);
+                PlayerMovement(player, map, hud, enemy); // Handle player movement
 
-                if (player.HasMoved && enemy.Health > 0)
+                if (player.HasMoved && enemy.Health > 0) // Move the enemy only if the player has moved
                 {
                     enemy.MoveRandomly(player, hud);
                 }
 
-                goldCollection.CheckForGold(player.Position.x, player.Position.y);
+                goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup
 
-                gameState.Update();
+                gameState.Update(); // Update the game state
             }
 
-            Console.WriteLine("Press any key to exit.");
+            Console.WriteLine("Press any key to exit."); // Game over / win screen
             Console.ReadKey();
         }
 
-        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy) // Put the player controls here cause it somehow works better?
+        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy) // Controls for player movement
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             int moveX = 0, moveY = 0;
