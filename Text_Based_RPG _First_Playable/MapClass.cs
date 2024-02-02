@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class Map
+internal class Map // Initialize 
 {
     public char[,] map;
     public int mapHeight { get; private set; }
     public int mapWidth { get; private set; }
 
-    public Map(string fileName)
+    public Map(string fileName) // Map method
     {
         LoadMap(fileName);
     }
 
-    private void LoadMap(string fileName)
+    private void LoadMap(string fileName) // Main load method
     {
-        string[] lines = File.ReadAllLines(fileName);
+        string[] lines = File.ReadAllLines(fileName); // Read mapArea.txt
         mapHeight = lines.Length;
         mapWidth = lines[0].Length;
         map = new char[mapHeight, mapWidth];
@@ -32,9 +32,9 @@ internal class Map
         }
     }
 
-    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth)
+    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth) // Displays the map and everything on it
     {
-        DrawBorder();
+        DrawBorder(); // Draw top border
 
         for (int i = 0; i < mapHeight; i++)
         {
@@ -44,17 +44,17 @@ internal class Map
             {
                 if (i == playerPosition.Item2 && j == playerPosition.Item1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Green; // Player
                     Console.Write('█');
                 }
                 else if (enemyHealth > 0 && i == enemyPosition.Item2 && j == enemyPosition.Item1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red; // Enemy
                     Console.Write('█');
                 }
                 else
                 {
-                    SetTextColor(map[i, j]);
+                    SetTextColor(map[i, j]); // Set the tile colors
                     Console.Write(map[i, j]);
                 }
                 Console.ResetColor();
@@ -63,10 +63,10 @@ internal class Map
             Console.WriteLine("|");
         }
 
-        DrawBorder();
+        DrawBorder(); // Draw bottem border
     }
 
-    private void DrawBorder()
+    private void DrawBorder() // Main draw border method
     {
         Console.Write("+");
         for (int i = 0; i < mapWidth; i++)
@@ -76,12 +76,12 @@ internal class Map
         Console.WriteLine("+");
     }
 
-    public bool WithinBounds(int x, int y)
+    public bool WithinBounds(int x, int y) // Simple check to see if player or enemy is within the map
     {
         return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
     }
 
-    private void SetTextColor(char textType)
+    private void SetTextColor(char textType) // Sets the colors for each tile type
     {
         switch (textType)
         {
