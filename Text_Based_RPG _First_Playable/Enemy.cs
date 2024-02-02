@@ -19,7 +19,7 @@ internal class Enemy
         random = new Random();
     }
 
-    public void MoveRandomly(Player player)
+    public void MoveRandomly(Player player, HUD hud)
     {
         int direction = random.Next(4);
         int x = 0, y = 0;
@@ -40,6 +40,7 @@ internal class Enemy
             if (newX == player.Position.x && newY == player.Position.y)
             {
                 Attack(player);
+                hud.SetActionMessage("You took 1 damage from enemy");
             }
             else
             {
@@ -59,9 +60,13 @@ internal class Enemy
         player.TakeDamage(1);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, HUD hud)
     {
         healthSystem.TakeDamage(amount);
+        if (healthSystem.Health <= 0)
+        {
+            hud.SetActionMessage("Enemy has died");
+        }
     }
 
     public int Health => healthSystem.Health;

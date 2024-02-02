@@ -29,7 +29,7 @@ internal class Player
         {
             if (newX == enemy.Position.x && newY == enemy.Position.y)
             {
-                Attack(enemy);
+                Attack(enemy, hud);
                 hud.SetActionMessage("You dealt 1 damage to enemy");
                 HasMoved = true;
             }
@@ -57,9 +57,9 @@ internal class Player
         return tile != '#' && tile != '|' && tile != '-';
     }
 
-    public void Attack(Enemy enemy)
+    public void Attack(Enemy enemy, HUD hud)
     {
-        enemy.TakeDamage(1);
+        enemy.TakeDamage(1, hud);
     }
 
     public void TakeDamage(int amount)

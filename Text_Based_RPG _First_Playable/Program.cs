@@ -34,7 +34,7 @@ namespace Text_Based_RPG__First_Playable
 
                 if (player.HasMoved && enemy.Health > 0)
                 {
-                    enemy.MoveRandomly(player);
+                    enemy.MoveRandomly(player, hud);
                 }
 
                 goldCollection.CheckForGold(player.Position.x, player.Position.y);
