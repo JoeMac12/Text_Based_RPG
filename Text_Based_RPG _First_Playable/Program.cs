@@ -5,6 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TextBased RPG
+// Made by Joseph
+
+// Prob some of the worst code with C# so far lol
+
 namespace Text_Based_RPG__First_Playable
 {
     internal class Program

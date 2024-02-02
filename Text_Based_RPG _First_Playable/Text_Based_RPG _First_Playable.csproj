@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enemy.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="GoldCollection.cs" />
-    <Compile Include="HealthSystem.cs" />
-    <Compile Include="Hud.cs" />
-    <Compile Include="MapClass.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Classes\Enemy.cs" />
+    <Compile Include="Classes\GameState.cs" />
+    <Compile Include="Classes\GoldCollection.cs" />
+    <Compile Include="Classes\HealthSystem.cs" />
+    <Compile Include="Classes\Hud.cs" />
+    <Compile Include="Classes\MapClass.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
