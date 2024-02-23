@@ -35,7 +35,7 @@ namespace Text_Based_RPG__First_Playable
 
                 player.HasMoved = false; // Set to false at initialize
 
-                PlayerMovement(player, map, hud, enemy, fastEnemy); // Handle player movement
+                PlayerMovement(player, map, hud, enemy, fastEnemy, straightLineEnemy); // Handle player movement
 
                 if (player.HasMoved)
                 {
@@ -56,7 +56,7 @@ namespace Text_Based_RPG__First_Playable
             Console.ReadKey();
         }
 
-        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy, FastEnemy fastEnemy) // Controls for player movement
+        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy) // Controls for player movement
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             int moveX = 0, moveY = 0;
@@ -81,7 +81,7 @@ namespace Text_Based_RPG__First_Playable
                     break;
             }
 
-            player.Move(moveX, moveY, hud, enemy, fastEnemy);
+            player.Move(moveX, moveY, hud, enemy, fastEnemy, straightLineEnemy);
         }
     }
 }

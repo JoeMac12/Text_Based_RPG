@@ -8,19 +8,19 @@ namespace Text_Based_RPG__First_Playable.Classes
 {
     internal class StraightLineEnemy : Enemy
     {
-        private int direction; // Drections
+        private int direction;
         private Random random = new Random();
 
-        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY) : base(map, initialHealth, startX, startY) // Use enemy base 
+        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY) : base(map, initialHealth, startX, startY)
         {
-            direction = random.Next(4); // Pick a random direction
+            direction = random.Next(4); // Random direction
         }
 
-        public override void MoveRandomly(Player player, HUD hud) // Override default movement
+        public override void MoveRandomly(Player player, HUD hud)
         {
             int x = 0, y = 0;
 
-            switch (direction) // Random movement slection
+            switch (direction)
             {
                 case 0: y = -1; break; // Up
                 case 1: x = 1; break;  // Right
@@ -33,7 +33,15 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Check if move is within bounds and not a wall
             {
-                Position = (newX, newY); // Move
+                if (newX == player.Position.x && newY == player.Position.y)
+                {
+                    Attack(player); // Attack the player
+                    hud.SetActionMessage("The straight line enemy attacked you for 1 damage!");
+                }
+                else
+                {
+                    Position = (newX, newY); // Move
+                }
             }
             else
             {
@@ -43,3 +51,4 @@ namespace Text_Based_RPG__First_Playable.Classes
         }
     }
 }
+

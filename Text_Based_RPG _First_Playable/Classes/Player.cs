@@ -21,7 +21,7 @@ internal class Player
         HasMoved = false;
     }
 
-    public void Move(int moveX, int moveY, HUD hud, Enemy enemy, FastEnemy fastEnemy) // Main method for moving the player with enemy checks and action messages
+    public void Move(int moveX, int moveY, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy) // Main method for moving the player with enemy checks and action messages
     {
         int newX = Position.x + moveX;
         int newY = Position.y + moveY;
@@ -38,6 +38,13 @@ internal class Player
             Attack(fastEnemy, hud);
             hud.SetActionMessage("You dealt 1 damage to the fast enemy!");
             return; // Stop Moving
+        }
+
+        if (newX == straightLineEnemy.Position.x && newY == straightLineEnemy.Position.y && straightLineEnemy.Health > 0) // Check collision with the straight line enemy
+        {
+            Attack(straightLineEnemy, hud);
+            hud.SetActionMessage("You dealt 1 damage to the straight line enemy!");
+            return; // Stop moving
         }
 
         if (map.WithinBounds(newX, newY) && CanMove(newX, newY))
