@@ -26,24 +26,27 @@ internal class Player
         int newX = Position.x + moveX;
         int newY = Position.y + moveY;
 
-        // Collision detection with enemies
+        // Attempt attacking the enemies
 
-        if (CheckCollisionAndAttack(newX, newY, enemy, hud, "You dealt 1 damage to the enemy!") ||
-            CheckCollisionAndAttack(newX, newY, fastEnemy, hud, "You dealt 1 damage to the fast enemy!") ||
-            CheckCollisionAndAttack(newX, newY, straightLineEnemy, hud, "You dealt 1 damage to the bouncing enemy!"))
+        bool enemyAttacked = CheckCollisionAndAttack(newX, newY, enemy, hud, "You dealt 1 damage to the enemy!") ||
+                             CheckCollisionAndAttack(newX, newY, fastEnemy, hud, "You dealt 1 damage to the fast enemy!") ||
+                             CheckCollisionAndAttack(newX, newY, straightLineEnemy, hud, "You dealt 1 damage to the bouncing enemy!");
+
+        if (enemyAttacked) // Prevent moving if an enemy is attacked
         {
-            return; // Stop moving
+            HasMoved = true; // Trigger move when attacking
+            return; // Don't move while attacking
         }
 
-        if (map.WithinBounds(newX, newY) && CanMove(newX, newY))  // Check if can move and then move
+        if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Make player move if not attacking and the move is valid
         {
-            Position = (newX, newY);
+            Position = (newX, newY); // Update player position
             HasMoved = true;
-            CheckTile(hud, newX, newY); // Check if current tile has a item 
+            CheckTile(hud, newX, newY); // Check the current tile
         }
         else
         {
-            HasMoved = false; // Anthing else
+            HasMoved = false; // False movement
         }
     }
 
@@ -53,9 +56,9 @@ internal class Player
         {
             enemy.TakeDamage(1, hud);
             hud.SetActionMessage(message);
-            return true;
+            return true; // Set to true if encountered and attacked a enemy
         }
-        return false;
+        return false; // No enemy was encountered
     }
 
     private bool CanMove(int x, int y) // Check if can move
