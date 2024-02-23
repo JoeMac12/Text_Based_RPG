@@ -11,7 +11,7 @@ namespace Text_Based_RPG__First_Playable.Classes
         private int direction;
         private Random random = new Random();
 
-        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY) : base(map, initialHealth, startX, startY)
+        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage)
         {
             direction = random.Next(4); // Random direction
         }
@@ -53,7 +53,7 @@ namespace Text_Based_RPG__First_Playable.Classes
                 if (newX == player.Position.x && newY == player.Position.y)
                 {
                     Attack(player);
-                    hud.SetActionMessage("The straight line enemy attacked you for 1 damage!");
+                    hud.SetActionMessage("The straight line enemy attacked you for 4 damage!");
                 }
                 else
                 {

@@ -10,10 +10,12 @@ internal class Enemy
     private HealthSystem healthSystem;
     protected Map map;
     private Random random;
+    protected int damage;
 
-    public Enemy(Map map, int initialHealth, int startX, int startY)
+    public Enemy(Map map, int initialHealth, int startX, int startY, int damage)
     {
         this.map = map;
+        this.damage = damage;
         Position = (startX, startY);
         healthSystem = new HealthSystem(initialHealth);
         random = new Random();
@@ -40,7 +42,7 @@ internal class Enemy
             if (newX == player.Position.x && newY == player.Position.y)
             {
                 Attack(player);
-                hud.SetActionMessage("You took 1 damage from normal enemy");
+                hud.SetActionMessage("You took 2 damage from normal enemy");
             }
             else
             {
@@ -57,7 +59,7 @@ internal class Enemy
 
     public void Attack(Player player)
     {
-        player.TakeDamage(1);
+        player.TakeDamage(damage);
     }
 
     public void TakeDamage(int amount, HUD hud)
