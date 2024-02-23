@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 internal class Enemy // Initialize 
 {
-    public (int x, int y) Position { get; private set; } // Initialize and get enemy pos
+    public (int x, int y) Position { get; protected set; } // Initialize and get enemy pos
     private HealthSystem healthSystem;
-    private Map map;
+    protected Map map;
     private Random random;
 
     public Enemy(Map map, int initialHealth, int startX, int startY) // Main method
@@ -49,7 +49,7 @@ internal class Enemy // Initialize
         }
     }
 
-    private bool CanMove(int x, int y) // Check if the enemy can move
+    protected bool CanMove(int x, int y) // Check if the enemy can move
     {
         char tile = map.map[y, x];
         return tile != '#' && tile != '|' && tile != '-';

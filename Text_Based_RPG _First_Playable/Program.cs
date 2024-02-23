@@ -21,6 +21,7 @@ namespace Text_Based_RPG__First_Playable
             Player player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19, 10);
             Enemy enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 50, startY: map.mapHeight - 3);
             FastEnemy fastEnemy = new FastEnemy(map, initialHealth: 5, startX: map.mapWidth - 35, startY: map.mapHeight - 10);
+            StraightLineEnemy straightLineEnemy = new StraightLineEnemy(map, initialHealth: 8, startX: map.mapWidth - 60, startY: map.mapHeight - 15);
             HUD hud = new HUD(player, enemy);
             GoldCollection goldCollection = new GoldCollection(map, hud);
             GameState gameState = new GameState(player, enemy, goldCollection);
@@ -29,7 +30,7 @@ namespace Text_Based_RPG__First_Playable
             {
                 Console.Clear();
 
-                map.DisplayMap(player.Position, enemy.Position, enemy.Health, fastEnemy.Position, fastEnemy.Health); // Display game map with everything else
+                map.DisplayMap(player.Position, enemy.Position, enemy.Health, fastEnemy.Position, fastEnemy.Health, straightLineEnemy.Position, straightLineEnemy.Health); // Display game map with everything else
                 hud.Display();
 
                 player.HasMoved = false; // Set to false at initialize
@@ -43,6 +44,7 @@ namespace Text_Based_RPG__First_Playable
                         enemy.MoveRandomly(player, hud);
                     }
                     fastEnemy.MoveRandomly(player, hud); // Always move fast enemy since it wont be based on the current state of the normal enemy
+                    straightLineEnemy.MoveRandomly(player, hud);
                 }
 
                 goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup

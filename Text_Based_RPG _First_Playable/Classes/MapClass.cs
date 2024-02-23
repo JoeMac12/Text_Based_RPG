@@ -32,7 +32,7 @@ internal class Map // Initialize
         }
     }
 
-    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth) // Displays the map and everything on it
+    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth, (int, int) straightLineEnemyPosition, int straightLineEnemyHealth) // Displays the map and everything on it
     {
         DrawBorder(); // Draw top border
 
@@ -45,6 +45,11 @@ internal class Map // Initialize
                 if (i == playerPosition.Item2 && j == playerPosition.Item1)
                 {
                     Console.ForegroundColor = ConsoleColor.Green; // Player
+                    Console.Write('█');
+                }
+                else if (straightLineEnemyHealth > 0 && i == straightLineEnemyPosition.Item2 && j == straightLineEnemyPosition.Item1)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta; // Straight Line Enemy
                     Console.Write('█');
                 }
                 else if (fastEnemyHealth > 0 && i == fastEnemyPosition.Item2 && j == fastEnemyPosition.Item1)
