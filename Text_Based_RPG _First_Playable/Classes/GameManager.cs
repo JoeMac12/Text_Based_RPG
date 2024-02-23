@@ -29,7 +29,7 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             // Initialize player and enemies
 
-            player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19, initialShield: 10);
+            player = new Player(map, initialHealth: 20, startX: map.mapWidth - 94, startY: map.mapHeight - 19, initialShield: 10);
             enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 76, startY: map.mapHeight - 5, damage: 2);
             fastEnemy = new FastEnemy(map, initialHealth: 5, startX: map.mapWidth - 64, startY: map.mapHeight - 10, damage: 1);
             straightLineEnemy = new StraightLineEnemy(map, initialHealth: 8, startX: map.mapWidth - 24, startY: map.mapHeight - 15, damage: 4);
