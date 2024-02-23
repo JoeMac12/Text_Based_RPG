@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Text_Based_RPG__First_Playable.Classes;
 
 // TextBased RPG
 // Made by Joseph
@@ -19,6 +20,7 @@ namespace Text_Based_RPG__First_Playable
             Map map = new Map("mapArea.txt");
             Player player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19, 10);
             Enemy enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 50, startY: map.mapHeight - 3);
+            FastEnemy fastEnemy = new FastEnemy(map, initialHealth: 5, startX: map.mapWidth - 35, startY: map.mapHeight - 10);
             HUD hud = new HUD(player, enemy);
             GoldCollection goldCollection = new GoldCollection(map, hud);
             GameState gameState = new GameState(player, enemy, goldCollection);
@@ -26,17 +28,21 @@ namespace Text_Based_RPG__First_Playable
             while (!gameState.IsGameOver) // Main game loop
             {
                 Console.Clear();
-                
-                map.DisplayMap(player.Position, enemy.Position, enemy.Health); // Display game map
+
+                map.DisplayMap(player.Position, enemy.Position, enemy.Health, fastEnemy.Position, fastEnemy.Health); // Display game map with everything else
                 hud.Display();
 
-                player.HasMoved = false; // Set to false at initalize
+                player.HasMoved = false; // Set to false at initialize
 
-                PlayerMovement(player, map, hud, enemy); // Handle player movement
+                PlayerMovement(player, map, hud, enemy, fastEnemy); // Handle player movement
 
-                if (player.HasMoved && enemy.Health > 0) // Move the enemy only if the player has moved
+                if (player.HasMoved)
                 {
-                    enemy.MoveRandomly(player, hud);
+                    if (enemy.Health > 0) // Move the normal enemy only if it is alive
+                    {
+                        enemy.MoveRandomly(player, hud);
+                    }
+                    fastEnemy.MoveRandomly(player, hud); // Always move fast enemy since it wont be based on the current state of the normal enemy
                 }
 
                 goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup
@@ -48,7 +54,7 @@ namespace Text_Based_RPG__First_Playable
             Console.ReadKey();
         }
 
-        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy) // Controls for player movement
+        static void PlayerMovement(Player player, Map map, HUD hud, Enemy enemy, FastEnemy fastEnemy) // Controls for player movement
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             int moveX = 0, moveY = 0;
@@ -73,7 +79,7 @@ namespace Text_Based_RPG__First_Playable
                     break;
             }
 
-            player.Move(moveX, moveY, hud, enemy);
+            player.Move(moveX, moveY, hud, enemy, fastEnemy);
         }
     }
 }

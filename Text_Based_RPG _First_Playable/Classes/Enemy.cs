@@ -19,7 +19,7 @@ internal class Enemy // Initialize
         random = new Random();
     }
 
-    public void MoveRandomly(Player player, HUD hud) // Allows the enemy to move to a random spot, also checks if moving into player
+    public virtual void MoveRandomly(Player player, HUD hud) // Allows the enemy to move to a random spot, also checks if moving into player, also make it usable for other enemy types
     {
         int direction = random.Next(4); // 1/4 chance to move up,down,left,right
         int x = 0, y = 0;
