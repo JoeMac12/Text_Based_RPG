@@ -54,7 +54,7 @@ internal class Map
                 }
                 else if (i == fastEnemyPosition.Item2 && j == fastEnemyPosition.Item1 && fastEnemyHealth > 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write('█'); // Fast Enemy icon
                 }
                 else if (i == enemyPosition.Item2 && j == enemyPosition.Item1 && enemyHealth > 0)
@@ -94,7 +94,7 @@ internal class Map
     {
         switch (textType)
         {
-            case '✧':
+            case '♦':
                 Console.ForegroundColor = ConsoleColor.Blue; // Teleport item
                 break;
             case '♥':
@@ -112,7 +112,7 @@ internal class Map
             case '#':
             case '|':
             case '-':
-                Console.ForegroundColor = ConsoleColor.DarkGray; // Walls
+                Console.ForegroundColor = ConsoleColor.DarkRed; // Walls
                 break;
             case 'Θ':
                 Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold

@@ -18,6 +18,8 @@ namespace Text_Based_RPG__First_Playable
     {
         static void Main(string[] args) // Start the game
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8; // Support UTF-8 Characters
+
             GameManager gameManager = new GameManager();
             gameManager.StartGameLoop();
         }

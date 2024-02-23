@@ -59,15 +59,15 @@ internal class HUD
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Player Shield: {player.Shield}");
         Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine($"Gold: {goldScore} / 10");
+        Console.ResetColor();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"Enemy Health: {enemy.Health}");
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine($"Fast Enemy Health: {fastEnemy.Health}");
         Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine($"Straight Line Enemy Health: {straightLineEnemy.Health}");
-        Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine($"Gold: {goldScore} / 10");
+        Console.WriteLine($"Bouncing Enemy Health: {straightLineEnemy.Health}");
         Console.ResetColor();
 
         DisplayActionMessage(); // Update action message last
