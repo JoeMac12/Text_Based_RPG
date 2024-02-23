@@ -11,10 +11,18 @@ internal class HUD // Initialize
     private int goldScore;
     private string actionMessage;
 
-    public HUD(Player player, Enemy enemy) // Player health / Enemy health
+    private int hudStartPosX;
+    private int hudStartPosY;
+    private int hudHeight;
+    private int actionMessageHeight = 1;
+
+    public HUD(Player player, Enemy enemy, int startX, int startY, int height)
     {
         this.player = player;
         this.enemy = enemy;
+        this.hudStartPosX = startX;
+        this.hudStartPosY = startY;
+        this.hudHeight = height;
     }
 
     public void UpdateGoldScore(int score) // Update score when picking up gold
@@ -22,10 +30,21 @@ internal class HUD // Initialize
         goldScore = score;
     }
 
-    public void SetActionMessage(string message) // Simple message system for telling the player what happend
+    public void SetActionMessage(string message)
     {
-        actionMessage = message;
+        int actionMessageStartY = hudStartPosY + hudHeight;
+        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
+
+        for (int i = 0; i < actionMessageHeight; i++)
+        {
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.CursorTop++;
+        }
+
+        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
+        Console.WriteLine(message);
     }
+
 
     public void Display() // Main info display
     {
@@ -43,7 +62,17 @@ internal class HUD // Initialize
         Console.ResetColor();
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine($"Action: {actionMessage}");
+        Console.WriteLine($"{actionMessage}");
         Console.ResetColor();
+    }
+
+    public void ClearHUD()
+    {
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY);
+        for (int i = 0; i < hudHeight; i++)
+        {
+            Console.Write(new string(' ', Console.WindowWidth));
+        }
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY);
     }
 }
