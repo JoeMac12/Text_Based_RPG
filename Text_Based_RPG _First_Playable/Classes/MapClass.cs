@@ -85,6 +85,9 @@ internal class Map // Initialize
     {
         switch (textType)
         {
+            case '✧': // Teleport item
+                Console.ForegroundColor = ConsoleColor.Blue;
+                break;
             case '♥': // Health item
                 Console.ForegroundColor = ConsoleColor.Green;
                 break;
