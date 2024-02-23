@@ -9,20 +9,20 @@ namespace Text_Based_RPG__First_Playable.Classes
 {
     internal class FastEnemy : Enemy
     {
-        public FastEnemy(Map map, int initialHealth, int startX, int startY) : base(map, initialHealth, startX, startY) // Create fast enemy entity using base class enemy
+        public FastEnemy(Map map, int initialHealth, int startX, int startY) : base(map, initialHealth, startX, startY) // Initialize fast enemy
         {
         }
 
-        public override void MoveRandomly(Player player, HUD hud)
+        public override void MoveRandomly(Player player, HUD hud) // Use base enemy movement
         {
-            for (int i = 0; i < 2; i++) // Use base enemy movement but make it move 2 spaces each time
+            for (int i = 0; i < 2; i++) // Move twice in one turn
             {
-                base.MoveRandomly(player, hud);
-                if (Position.x == player.Position.x && Position.y == player.Position.y) // Check if it has moved into the player's position
+                base.MoveRandomly(player, hud); 
+                if (Position.x == player.Position.x && Position.y == player.Position.y)
                 {
-                    player.TakeDamage(1); // Attack the player
+                    player.TakeDamage(1);
                     hud.SetActionMessage("The fast enemy attacked you for 1 damage!");
-                    break; // Don't move when attacking
+                    break;
                 }
             }
         }

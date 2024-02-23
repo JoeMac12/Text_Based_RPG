@@ -65,4 +65,3 @@ namespace Text_Based_RPG__First_Playable.Classes
         }
     }
 }
-

@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class Map // Initialize 
+internal class Map
 {
     public char[,] map;
     public int mapHeight { get; private set; }
     public int mapWidth { get; private set; }
 
-    public Map(string fileName) // Map method
+    public Map(string fileName) // LoadMap method
     {
         LoadMap(fileName);
     }
 
-    private void LoadMap(string fileName) // Main load method
+    private void LoadMap(string fileName) // Read the map file
     {
-        string[] lines = File.ReadAllLines(fileName); // Read mapArea.txt
+        string[] lines = File.ReadAllLines(fileName);
         mapHeight = lines.Length;
         mapWidth = lines[0].Length;
         map = new char[mapHeight, mapWidth];
@@ -35,34 +35,32 @@ internal class Map // Initialize
     public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth, (int, int) straightLineEnemyPosition, int straightLineEnemyHealth, int startX, int startY)
     {
         Console.SetCursorPosition(startX, startY);
-
-        DrawBorder(); // Draw top border
+        DrawBorder();
 
         for (int i = 0; i < mapHeight; i++)
         {
             Console.Write("|");
-
             for (int j = 0; j < mapWidth; j++)
             {
                 if (i == playerPosition.Item2 && j == playerPosition.Item1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green; // Player
-                    Console.Write('█');
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write('█'); // Player icon
                 }
-                else if (straightLineEnemyHealth > 0 && i == straightLineEnemyPosition.Item2 && j == straightLineEnemyPosition.Item1)
+                else if (i == straightLineEnemyPosition.Item2 && j == straightLineEnemyPosition.Item1 && straightLineEnemyHealth > 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta; // Straight Line Enemy
-                    Console.Write('█');
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.Write('█'); // Straight Line Enemy icon
                 }
-                else if (fastEnemyHealth > 0 && i == fastEnemyPosition.Item2 && j == fastEnemyPosition.Item1)
+                else if (i == fastEnemyPosition.Item2 && j == fastEnemyPosition.Item1 && fastEnemyHealth > 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue; // Fast Enemy
-                    Console.Write('█');
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write('█'); // Fast Enemy icon
                 }
-                else if (enemyHealth > 0 && i == enemyPosition.Item2 && j == enemyPosition.Item1)
+                else if (i == enemyPosition.Item2 && j == enemyPosition.Item1 && enemyHealth > 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red; // Normal Enemy
-                    Console.Write('█');
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write('█'); // Enemy icon
                 }
                 else
                 {
@@ -71,14 +69,13 @@ internal class Map // Initialize
                 }
                 Console.ResetColor();
             }
-
             Console.WriteLine("|");
         }
 
-        DrawBorder(); // Draw bottem border
+        DrawBorder();
     }
 
-    private void DrawBorder() // Main draw border method
+    private void DrawBorder()
     {
         Console.Write("+");
         for (int i = 0; i < mapWidth; i++)
@@ -88,37 +85,37 @@ internal class Map // Initialize
         Console.WriteLine("+");
     }
 
-    public bool WithinBounds(int x, int y) // Simple check to see if player or enemy is within the map
+    public bool WithinBounds(int x, int y) // Check if within the map
     {
         return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
     }
 
-    private void SetTextColor(char textType) // Sets the colors for each tile type
+    private void SetTextColor(char textType) // Set the colors
     {
         switch (textType)
         {
-            case '✧': // Teleport item
-                Console.ForegroundColor = ConsoleColor.Blue;
+            case '✧':
+                Console.ForegroundColor = ConsoleColor.Blue; // Teleport item
                 break;
-            case '♥': // Health item
-                Console.ForegroundColor = ConsoleColor.Green;
+            case '♥':
+                Console.ForegroundColor = ConsoleColor.Green; // Health item
                 break;
-            case '♜': // Shield item
-                Console.ForegroundColor = ConsoleColor.Cyan;
+            case '♜':
+                Console.ForegroundColor = ConsoleColor.Cyan; // Shield item
                 break;
-            case '.': // Floor / Background
-                Console.ForegroundColor = ConsoleColor.Black;
+            case '.':
+                Console.ForegroundColor = ConsoleColor.Black; // Floor / Background
                 break;
-            case '~': // Acid
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
+            case '~':
+                Console.ForegroundColor = ConsoleColor.DarkGreen; // Acid
                 break;
-            case '#': // Walls
+            case '#':
             case '|':
             case '-':
-                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.DarkGray; // Walls
                 break;
-            case 'Θ': // Gold
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+            case 'Θ':
+                Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold
                 break;
             default:
                 Console.ResetColor();

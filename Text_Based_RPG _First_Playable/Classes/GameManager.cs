@@ -36,7 +36,7 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             // Setup HUD and gold collection
 
-            hud = new HUD(player, enemy, 0, map.mapHeight + 2, 5);
+            hud = new HUD(player, enemy, fastEnemy, straightLineEnemy, 0, map.mapHeight + 2, 5);
             goldCollection = new GoldCollection(map, hud);
 
             // Initialize game state

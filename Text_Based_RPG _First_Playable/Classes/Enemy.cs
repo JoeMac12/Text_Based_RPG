@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class Enemy // Initialize 
+internal class Enemy
 {
-    public (int x, int y) Position { get; protected set; } // Initialize and get enemy pos
+    public (int x, int y) Position { get; protected set; }
     private HealthSystem healthSystem;
     protected Map map;
     private Random random;
 
-    public Enemy(Map map, int initialHealth, int startX, int startY) // Main method
+    public Enemy(Map map, int initialHealth, int startX, int startY)
     {
         this.map = map;
         Position = (startX, startY);
@@ -19,9 +19,9 @@ internal class Enemy // Initialize
         random = new Random();
     }
 
-    public virtual void MoveRandomly(Player player, HUD hud) // Allows the enemy to move to a random spot, also checks if moving into player, also make it usable for other enemy types
+    public virtual void MoveRandomly(Player player, HUD hud)
     {
-        int direction = random.Next(4); // 1/4 chance to move up,down,left,right
+        int direction = random.Next(4);
         int x = 0, y = 0;
 
         switch (direction)
@@ -35,38 +35,38 @@ internal class Enemy // Initialize
         int newX = Position.x + x;
         int newY = Position.y + y;
 
-        if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Check if enemy is within the map
+        if (map.WithinBounds(newX, newY) && CanMove(newX, newY))
         {
-            if (newX == player.Position.x && newY == player.Position.y) // Moving into the player
+            if (newX == player.Position.x && newY == player.Position.y)
             {
                 Attack(player);
-                hud.SetActionMessage("You took 1 damage from the enemy");
+                hud.SetActionMessage("You took 1 damage from normal enemy");
             }
             else
             {
-                Position = (newX, newY); // Normal move
+                Position = (newX, newY);
             }
         }
     }
 
-    protected bool CanMove(int x, int y) // Check if the enemy can move
+    protected bool CanMove(int x, int y)
     {
         char tile = map.map[y, x];
         return tile != '#' && tile != '|' && tile != '-';
     }
 
-    public void Attack(Player player) // Attacking the player
+    public void Attack(Player player)
     {
         player.TakeDamage(1);
     }
 
-    public void TakeDamage(int amount, HUD hud) // Reciving damage and checking if died
+    public void TakeDamage(int amount, HUD hud)
     {
         healthSystem.TakeDamage(amount);
         if (healthSystem.Health <= 0)
         {
             hud.SetActionMessage("Enemy has died");
-            Position = (-1, -1); // Move off map
+            Position = (-1, -1);
         }
     }
 
