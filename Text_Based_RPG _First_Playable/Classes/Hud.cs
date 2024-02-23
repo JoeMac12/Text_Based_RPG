@@ -32,6 +32,8 @@ internal class HUD // Initialize
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"Player Health: {player.Health}");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"Player Shield: {player.Shield}"); 
         Console.ResetColor();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"Enemy Health: {enemy.Health}");

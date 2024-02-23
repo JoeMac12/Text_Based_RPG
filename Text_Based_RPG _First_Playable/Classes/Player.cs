@@ -12,11 +12,11 @@ internal class Player
 
     public bool HasMoved { get; set; }
 
-    public Player(Map map, int initialHealth, int startX, int startY) // Main method
+    public Player(Map map, int initialHealth, int startX, int startY, int initialShield = 0) // Main method
     {
         this.map = map;
         Position = (startX, startY);
-        healthSystem = new HealthSystem(initialHealth);
+        healthSystem = new HealthSystem(initialHealth, initialShield);
         HasMoved = false;
     }
 
@@ -68,4 +68,5 @@ internal class Player
     }
 
     public int Health => healthSystem.Health;
+    public int Shield => healthSystem.Shield;
 }

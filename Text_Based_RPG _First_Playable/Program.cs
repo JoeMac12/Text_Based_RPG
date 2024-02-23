@@ -17,7 +17,7 @@ namespace Text_Based_RPG__First_Playable
         static void Main(string[] args) // Initialize 
         {
             Map map = new Map("mapArea.txt");
-            Player player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19);
+            Player player = new Player(map, initialHealth: 20, startX: map.mapWidth - 78, startY: map.mapHeight - 19, 10);
             Enemy enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 50, startY: map.mapHeight - 3);
             HUD hud = new HUD(player, enemy);
             GoldCollection goldCollection = new GoldCollection(map, hud);
