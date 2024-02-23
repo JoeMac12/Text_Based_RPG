@@ -18,9 +18,26 @@ namespace Text_Based_RPG__First_Playable.Classes
 
         public override void MoveRandomly(Player player, HUD hud)
         {
-            int x = 0, y = 0;
+            bool moved = TryMoveInDirection(player, hud, direction);
 
-            switch (direction)
+            if (!moved) // If not moved
+            {
+                for (int i = 0; i < 4; i++) // Try moving in next direction
+                {
+                    int newDirection = random.Next(4);
+                    if (TryMoveInDirection(player, hud, newDirection))
+                    {
+                        direction = newDirection; // Update direction
+                        break;
+                    }
+                }
+            }
+        }
+
+        private bool TryMoveInDirection(Player player, HUD hud, int dir) // Try next movement method
+        {
+            int x = 0, y = 0;
+            switch (dir)
             {
                 case 0: y = -1; break; // Up
                 case 1: x = 1; break;  // Right
@@ -31,23 +48,20 @@ namespace Text_Based_RPG__First_Playable.Classes
             int newX = Position.x + x;
             int newY = Position.y + y;
 
-            if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Check if move is within bounds and not a wall
+            if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Check if within map
             {
                 if (newX == player.Position.x && newY == player.Position.y)
                 {
-                    Attack(player); // Attack the player
+                    Attack(player);
                     hud.SetActionMessage("The straight line enemy attacked you for 1 damage!");
                 }
                 else
                 {
                     Position = (newX, newY); // Move
+                    return true;
                 }
             }
-            else
-            {
-                direction = random.Next(4); // Change direction if hitting a wall
-                MoveRandomly(player, hud); // Move in that direction
-            }
+            return false;
         }
     }
 }
