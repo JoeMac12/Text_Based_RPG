@@ -85,6 +85,9 @@ internal class Map // Initialize
     {
         switch (textType)
         {
+            case '♜': // Shield item
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                break;
             case '.': // Floor / Background
                 Console.ForegroundColor = ConsoleColor.Black;
                 break;
