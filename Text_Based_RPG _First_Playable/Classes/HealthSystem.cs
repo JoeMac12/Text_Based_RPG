@@ -36,4 +36,9 @@ internal class HealthSystem
     {
         Shield += amount;
     }
+
+    public void AddHealth(int amount) // Simple regen for health
+    {
+        Health += amount;
+    }
 }

@@ -85,6 +85,9 @@ internal class Map // Initialize
     {
         switch (textType)
         {
+            case '♥': // Health item
+                Console.ForegroundColor = ConsoleColor.Green;
+                break;
             case '♜': // Shield item
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 break;
