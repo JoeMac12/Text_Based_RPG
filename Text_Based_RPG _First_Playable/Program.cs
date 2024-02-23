@@ -10,7 +10,7 @@ using Text_Based_RPG__First_Playable.Classes;
 // Made by Joseph
 // Last updated Feb 23rd, 2024
 
-// Now slightly better! (Maybe)
+// Now slightly better (Maybe)
 
 namespace Text_Based_RPG__First_Playable
 {

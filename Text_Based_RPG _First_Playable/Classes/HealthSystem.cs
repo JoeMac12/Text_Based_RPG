@@ -17,7 +17,7 @@ internal class HealthSystem
 
     public void TakeDamage(int amount) // Simple take damage method
     {
-        int damageAfterShield = amount - Shield;
+        int damageAfterShield = amount - Shield; // Damage shield first
         Shield -= amount;
 
         if (Shield < 0)

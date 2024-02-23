@@ -9,7 +9,8 @@ namespace Text_Based_RPG__First_Playable.Classes
 {
     internal class FastEnemy : Enemy
     {
-        public FastEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage) // Initialize fast enemy
+        public FastEnemy(Map map, int initialHealth, int startX, int startY, int damage) // Initialize fast enemy
+            : base(map, initialHealth, startX, startY, damage)
         {
         }
 
@@ -17,11 +18,11 @@ namespace Text_Based_RPG__First_Playable.Classes
         {
             for (int i = 0; i < 2; i++) // Move twice in one turn
             {
-                base.MoveRandomly(player, hud); 
-                if (Position.x == player.Position.x && Position.y == player.Position.y)
+                base.MoveRandomly(player, hud);
+                if (Position.x == player.Position.x && Position.y == player.Position.y) // Attack Player
                 {
-                    Attack(player);
-                    hud.SetActionMessage("The fast enemy attacked you for 1 damage!");
+                    Attack(player, hud);
+                    hud.SetActionMessage($"You took {damage} damage from fast enemy");
                     break;
                 }
             }

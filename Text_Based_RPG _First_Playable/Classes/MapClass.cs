@@ -32,10 +32,10 @@ internal class Map
         }
     }
 
-    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth, (int, int) straightLineEnemyPosition, int straightLineEnemyHealth, int startX, int startY)
+    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth, (int, int) straightLineEnemyPosition, int straightLineEnemyHealth, int startX, int startY) // Display map and everything else on it
     {
-        Console.SetCursorPosition(startX, startY);
-        DrawBorder();
+        Console.SetCursorPosition(startX, startY); // Keep it clear
+        DrawBorder(); // Start drawing the border
 
         for (int i = 0; i < mapHeight; i++)
         {
@@ -72,10 +72,10 @@ internal class Map
             Console.WriteLine("|");
         }
 
-        DrawBorder();
+        DrawBorder(); // Other border
     }
 
-    private void DrawBorder()
+    private void DrawBorder() // Draw border method
     {
         Console.Write("+");
         for (int i = 0; i < mapWidth; i++)

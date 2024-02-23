@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG__First_Playable.Classes
 {
-    internal class StraightLineEnemy : Enemy
+    internal class StraightLineEnemy : Enemy // Base
     {
         private int direction;
         private Random random = new Random();
 
-        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage)
+        public StraightLineEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage) // Initialize bouncing enemy
         {
             direction = random.Next(4); // Random direction
         }
 
-        public override void MoveRandomly(Player player, HUD hud)
+        public override void MoveRandomly(Player player, HUD hud) // Over ride base enemy movement
         {
             bool moved = TryMoveInDirection(player, hud, direction);
 
@@ -52,8 +52,8 @@ namespace Text_Based_RPG__First_Playable.Classes
             {
                 if (newX == player.Position.x && newY == player.Position.y)
                 {
-                    Attack(player);
-                    hud.SetActionMessage("The straight line enemy attacked you for 4 damage!");
+                    Attack(player, hud);
+                    hud.SetActionMessage($"You took {damage} damage from bouncing enemy");
                 }
                 else
                 {

@@ -18,7 +18,7 @@ internal class HUD
     private int hudHeight;
     private int actionMessageHeight = 1;
 
-    public HUD(Player player, Enemy enemy, Enemy fastEnemy, Enemy straightLineEnemy, int startX, int startY, int height)
+    public HUD(Player player, Enemy enemy, Enemy fastEnemy, Enemy straightLineEnemy, int startX, int startY, int height) // Initialize Hud
     {
         this.player = player;
         this.enemy = enemy;
@@ -29,51 +29,51 @@ internal class HUD
         this.hudHeight = height;
     }
 
-    public void UpdateGoldScore(int score)
+    public void UpdateGoldScore(int score) // Update the current gold score
     {
         goldScore = score;
     }
 
-    public void SetActionMessage(string message)
+    public void SetActionMessage(string message) // Update action message
     {
         actionMessage = message;
         DisplayActionMessage();
     }
 
-    private void DisplayActionMessage()
+    private void DisplayActionMessage() // Display the message
     {
         int actionMessageStartY = hudStartPosY + hudHeight + actionMessageHeight;
         Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
-        Console.Write(new string(' ', Console.WindowWidth)); // Clear the line
+        Console.Write(new string(' ', Console.WindowWidth)); // Clear the line each time for new messages
         Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
         Console.WriteLine(actionMessage);
     }
 
-    public void Display()
+    public void Display() // Display game stats
     {
         ClearHUD();
-        Console.SetCursorPosition(hudStartPosX, hudStartPosY);
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY); // Keep it clear
 
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Player Health: {player.Health}");
+        Console.WriteLine($"Player Health: {player.Health}"); // Player health
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Player Shield: {player.Shield}");
+        Console.WriteLine($"Player Shield: {player.Shield}"); // Player Shield
         Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold
         Console.WriteLine($"Gold: {goldScore} / 10");
         Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Red; // Normal Enemy
         Console.WriteLine($"Enemy Health: {enemy.Health}");
-        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.ForegroundColor = ConsoleColor.Cyan; // Fast Enemy
         Console.WriteLine($"Fast Enemy Health: {fastEnemy.Health}");
-        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.ForegroundColor = ConsoleColor.Magenta; // Bouncing Enemy
         Console.WriteLine($"Bouncing Enemy Health: {straightLineEnemy.Health}");
         Console.ResetColor();
 
         DisplayActionMessage(); // Update action message last
     }
 
-    public void ClearHUD()
+    public void ClearHUD() // Clear hud to prevent overlap
     {
         for (int i = 0; i < hudHeight + actionMessageHeight + 1; i++) // Space out action message
         {
