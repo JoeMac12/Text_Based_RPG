@@ -13,10 +13,10 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int PlayerStartingX { get; set; }
         public int PlayerStartingY { get; set; }
 
-        public int EnemyStartingHealth { get; set; }
-        public int EnemyStartingX { get; set; }
-        public int EnemyStartingY { get; set; }
-        public int EnemyDamage { get; set; }
+        public int NormalEnemyStartingHealth { get; set; }
+        public int NormalEnemyStartingX { get; set; }
+        public int NormalEnemyStartingY { get; set; }
+        public int NormalEnemyDamage { get; set; }
 
         public int FastEnemyStartingHealth { get; set; }
         public int FastEnemyStartingX { get; set; }
@@ -36,11 +36,11 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             PlayerStartingX = 1;
             PlayerStartingY = 1;
 
-            // Basic Enemy
-            EnemyStartingHealth = 10;
-            EnemyStartingX = 20;
-            EnemyStartingY = 15;
-            EnemyDamage = 2;
+            // Normal Enemy
+            NormalEnemyStartingHealth = 10;
+            NormalEnemyStartingX = 20;
+            NormalEnemyStartingY = 15;
+            NormalEnemyDamage = 2;
 
             // Fast Enemy
             FastEnemyStartingHealth = 5;

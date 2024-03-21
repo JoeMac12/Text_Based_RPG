@@ -38,11 +38,11 @@ namespace Text_Based_RPG__First_Playable.Classes
                                 startY: settings.PlayerStartingY,
                                 initialShield: settings.PlayerStartingShield);
 
-            enemy = new Enemy(map,
-                              initialHealth: settings.EnemyStartingHealth,
-                              startX: settings.EnemyStartingX,
-                              startY: settings.EnemyStartingY,
-                              damage: settings.EnemyDamage);
+            enemy = new NormalEnemy(map,
+                              initialHealth: settings.NormalEnemyStartingHealth,
+                              startX: settings.NormalEnemyStartingX,
+                              startY: settings.NormalEnemyStartingY,
+                              damage: settings.NormalEnemyDamage);
 
             fastEnemy = new FastEnemy(map,
                               initialHealth: settings.FastEnemyStartingHealth,

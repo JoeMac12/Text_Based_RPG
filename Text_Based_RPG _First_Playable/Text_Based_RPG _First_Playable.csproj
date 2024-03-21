@@ -51,6 +51,7 @@
     <Compile Include="Classes\HealthSystem.cs" />
     <Compile Include="Classes\Hud.cs" />
     <Compile Include="Classes\MapClass.cs" />
+    <Compile Include="Classes\NormalEnemy.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\StraightLineEnemy.cs" />
