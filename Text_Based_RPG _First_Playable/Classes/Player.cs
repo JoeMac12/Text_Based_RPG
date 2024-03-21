@@ -46,6 +46,11 @@ internal class Player
         }
 
         Move(moveX, moveY, hud, enemy, fastEnemy, straightLineEnemy);
+
+        while (Console.KeyAvailable)
+        {
+            Console.ReadKey(true);
+        }
     }
 
     public void Move(int moveX, int moveY, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy) // Main player move method
