@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,10 +17,12 @@ namespace Text_Based_RPG__First_Playable.Classes
         private HUD hud;
         private GoldCollection goldCollection;
         private GameState gameState;
+        private Settings settings;
 
         public GameManager() // Main
         {
             Console.CursorVisible = false;
+            settings = new Settings();
             InitializeGame();
         }
 
@@ -29,10 +32,29 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             // Initialize player and enemies
 
-            player = new Player(map, initialHealth: 20, startX: map.mapWidth - 94, startY: map.mapHeight - 19, initialShield: 10);
-            enemy = new Enemy(map, initialHealth: 10, startX: map.mapWidth - 76, startY: map.mapHeight - 5, damage: 2);
-            fastEnemy = new FastEnemy(map, initialHealth: 5, startX: map.mapWidth - 64, startY: map.mapHeight - 10, damage: 1);
-            straightLineEnemy = new StraightLineEnemy(map, initialHealth: 5, startX: map.mapWidth - 24, startY: map.mapHeight - 15, damage: 4);
+            player = new Player(map,
+                                initialHealth: settings.PlayerStartingHealth,
+                                startX: settings.PlayerStartingX,
+                                startY: settings.PlayerStartingY,
+                                initialShield: settings.PlayerStartingShield);
+
+            enemy = new Enemy(map,
+                              initialHealth: settings.EnemyStartingHealth,
+                              startX: settings.EnemyStartingX,
+                              startY: settings.EnemyStartingY,
+                              damage: settings.EnemyDamage);
+
+            fastEnemy = new FastEnemy(map,
+                              initialHealth: settings.FastEnemyStartingHealth,
+                              startX: settings.FastEnemyStartingX,
+                              startY: settings.FastEnemyStartingY,
+                              damage: settings.FastEnemyDamage);
+
+            straightLineEnemy = new StraightLineEnemy(map,
+                              initialHealth: settings.StraightLineEnemyStartingHealth,
+                              startX: settings.StraightLineEnemyStartingX,
+                              startY: settings.StraightLineEnemyStartingY,
+                              damage: settings.StraightLineEnemyDamage);
 
             // Setup HUD and gold collection
 
@@ -72,32 +94,10 @@ namespace Text_Based_RPG__First_Playable.Classes
             EndGame(); // End the game Win or Lose
         }
 
-        private void PlayerMovement() // Player controls
+        private void PlayerMovement() // Grab from player class now
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            int moveX = 0, moveY = 0;
-
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.W: // Up
-                case ConsoleKey.UpArrow:
-                    moveY = -1;
-                    break;
-                case ConsoleKey.S: // Down
-                case ConsoleKey.DownArrow:
-                    moveY = 1;
-                    break;
-                case ConsoleKey.A: // Left
-                case ConsoleKey.LeftArrow:
-                    moveX = -1;
-                    break;
-                case ConsoleKey.D: // Right
-                case ConsoleKey.RightArrow:
-                    moveX = 1;
-                    break;
-            }
-
-            player.Move(moveX, moveY, hud, enemy, fastEnemy, straightLineEnemy); // Update and check for each player movement
+            player.HandleMovement(keyInfo, hud, enemy, fastEnemy, straightLineEnemy);
         }
 
         private void MoveEnemies() // Moving the enemies

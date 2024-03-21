@@ -21,6 +21,33 @@ internal class Player
         HasMoved = false;
     }
 
+    public void HandleMovement(ConsoleKeyInfo keyInfo, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy)
+    {
+        int moveX = 0, moveY = 0;
+
+        switch (keyInfo.Key)
+        {
+            case ConsoleKey.W: // Up
+            case ConsoleKey.UpArrow:
+                moveY = -1;
+                break;
+            case ConsoleKey.S: // Down
+            case ConsoleKey.DownArrow:
+                moveY = 1;
+                break;
+            case ConsoleKey.A: // Left
+            case ConsoleKey.LeftArrow:
+                moveX = -1;
+                break;
+            case ConsoleKey.D: // Right
+            case ConsoleKey.RightArrow:
+                moveX = 1;
+                break;
+        }
+
+        Move(moveX, moveY, hud, enemy, fastEnemy, straightLineEnemy);
+    }
+
     public void Move(int moveX, int moveY, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy) // Main player move method
     {
         int newX = Position.x + moveX;
