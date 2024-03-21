@@ -9,13 +9,15 @@ internal class Player
 {
     public (int x, int y) Position { get; private set; }
     private HealthSystem healthSystem;
+    private Settings settings;
     private Map map;
 
     public bool HasMoved { get; set; }
 
-    public Player(Map map, int initialHealth, int startX, int startY, int initialShield = 0) // Initialize the player
+    public Player(Map map, int initialHealth, int startX, int startY, int initialShield, Settings settings) // Initialize the player
     {
         this.map = map;
+        this.settings = settings;
         Position = (startX, startY);
         healthSystem = new HealthSystem(initialHealth, initialShield);
         HasMoved = false;
@@ -110,14 +112,14 @@ internal class Player
                 hud.SetActionMessage("You stepped in acid and took 1 damage!");
                 break;
             case '♜': // Shield
-                RegenerateShield(5);
+                RegenerateShield(settings.ShieldRegenAmount);
                 map.map[y, x] = '.'; // Replace with floor
-                hud.SetActionMessage("Your shield has been increased by 5 HP!");
+                hud.SetActionMessage($"Your shield has been increased by {settings.ShieldRegenAmount} HP!");
                 break;
             case '♥': // Health
-                RegenerateHealth(5);
+                RegenerateHealth(settings.HealthHealAmount);
                 map.map[y, x] = '.'; // Replace with floor
-                hud.SetActionMessage("Your health has been increased by 5 HP!");
+                hud.SetActionMessage($"Your health has been increased by {settings.HealthHealAmount} HP!");
                 break;
             case '♦': // Teleport
                 TeleportRandomly();

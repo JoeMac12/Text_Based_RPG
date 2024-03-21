@@ -13,6 +13,9 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int PlayerStartingX { get; set; }
         public int PlayerStartingY { get; set; }
 
+        public int HealthHealAmount { get; set; }
+        public int ShieldRegenAmount { get; set; }
+
         public int NormalEnemyStartingHealth { get; set; }
         public int NormalEnemyStartingX { get; set; }
         public int NormalEnemyStartingY { get; set; }
@@ -35,6 +38,10 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             PlayerStartingShield = 10;
             PlayerStartingX = 1;
             PlayerStartingY = 1;
+
+            // Items
+            HealthHealAmount = 5; 
+            ShieldRegenAmount = 5; 
 
             // Normal Enemy
             NormalEnemyStartingHealth = 10;

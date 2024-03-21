@@ -36,7 +36,8 @@ namespace Text_Based_RPG__First_Playable.Classes
                                 initialHealth: settings.PlayerStartingHealth,
                                 startX: settings.PlayerStartingX,
                                 startY: settings.PlayerStartingY,
-                                initialShield: settings.PlayerStartingShield);
+                                initialShield: settings.PlayerStartingShield,
+                                settings);
 
             enemy = new NormalEnemy(map,
                               initialHealth: settings.NormalEnemyStartingHealth,
