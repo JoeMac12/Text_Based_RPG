@@ -88,6 +88,7 @@ internal class Player
         {
             enemy.TakeDamage(1, hud);
             hud.SetActionMessage(message);
+            hud.UpdateLastEncounteredEnemy(enemy); // Update the HUD 
             return true; // Set to true if encountered and attacked a enemy
         }
         return false; // No enemy was encountered

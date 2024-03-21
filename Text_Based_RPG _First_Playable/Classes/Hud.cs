@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Text_Based_RPG__First_Playable.Classes;
 
 internal class HUD
 {
     private Player player;
-    private Enemy enemy;
+    private Enemy normalEnemy;
     private Enemy fastEnemy;
     private Enemy straightLineEnemy;
+    private Enemy lastEncounteredEnemy;
     private int goldScore;
     private string actionMessage;
 
@@ -18,10 +20,10 @@ internal class HUD
     private int hudHeight;
     private int actionMessageHeight = 1;
 
-    public HUD(Player player, Enemy enemy, Enemy fastEnemy, Enemy straightLineEnemy, int startX, int startY, int height) // Initialize Hud
+    public HUD(Player player, Enemy normalEnemy, Enemy fastEnemy, Enemy straightLineEnemy, int startX, int startY, int height) // Initialize Hud
     {
         this.player = player;
-        this.enemy = enemy;
+        this.normalEnemy = normalEnemy;
         this.fastEnemy = fastEnemy;
         this.straightLineEnemy = straightLineEnemy;
         this.hudStartPosX = startX;
@@ -29,53 +31,70 @@ internal class HUD
         this.hudHeight = height;
     }
 
-    public void UpdateGoldScore(int score) // Update the current gold score
+    public void UpdateLastEncounteredEnemy(Enemy enemy) // Get last enemy 
+    {
+        lastEncounteredEnemy = enemy;
+    }
+
+    public void UpdateGoldScore(int score)
     {
         goldScore = score;
     }
 
-    public void SetActionMessage(string message) // Update action message
+    public void SetActionMessage(string message)
     {
         actionMessage = message;
         DisplayActionMessage();
     }
 
-    private void DisplayActionMessage() // Display the message
-    {
-        int actionMessageStartY = hudStartPosY + hudHeight + actionMessageHeight;
-        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
-        Console.Write(new string(' ', Console.WindowWidth)); // Clear the line each time for new messages
-        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
-        Console.WriteLine(actionMessage);
-    }
-
-    public void Display() // Display game stats
+    public void Display()
     {
         ClearHUD();
-        Console.SetCursorPosition(hudStartPosX, hudStartPosY); // Keep it clear
+        DisplayStats();
+        DisplayActionMessage();
+    }
+
+    private void DisplayStats() // Display game stats
+    {
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY); 
 
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"Player Health: {player.Health}"); // Player health
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Player Shield: {player.Shield}"); // Player Shield
         Console.ResetColor();
+
         Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold
         Console.WriteLine($"Gold: {goldScore} / 10");
         Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.Red; // Normal Enemy
-        Console.WriteLine($"Enemy Health: {enemy.Health}");
-        Console.ForegroundColor = ConsoleColor.Cyan; // Fast Enemy
-        Console.WriteLine($"Fast Enemy Health: {fastEnemy.Health}");
-        Console.ForegroundColor = ConsoleColor.Magenta; // Bouncing Enemy
-        Console.WriteLine($"Bouncing Enemy Health: {straightLineEnemy.Health}");
-        Console.ResetColor();
 
-        DisplayActionMessage(); // Update action message last
+        if (lastEncounteredEnemy != null)
+        {
+            Console.ForegroundColor = GetEnemyColor(lastEncounteredEnemy);
+            Console.WriteLine($"{lastEncounteredEnemy.GetType().Name} Health: {lastEncounteredEnemy.Health}");
+            Console.ResetColor();
+        }
+    }
+
+    private ConsoleColor GetEnemyColor(Enemy enemy)
+    {
+        if (enemy is FastEnemy) return ConsoleColor.Cyan;
+        if (enemy is StraightLineEnemy) return ConsoleColor.Magenta;
+        return ConsoleColor.Red; // Default 
+    }
+
+    private void DisplayActionMessage() // Display the message
+    {
+        int actionMessageStartY = hudStartPosY + hudHeight + actionMessageHeight;
+        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
+        Console.Write(new string(' ', Console.WindowWidth));
+        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
+        Console.WriteLine(actionMessage);
     }
 
     public void ClearHUD() // Clear hud to prevent overlap
     {
-        for (int i = 0; i < hudHeight + actionMessageHeight + 1; i++) // Space out action message
+        for (int i = 0; i < hudHeight + actionMessageHeight + 1; i++)
         {
             Console.SetCursorPosition(hudStartPosX, hudStartPosY + i);
             Console.Write(new string(' ', Console.WindowWidth));
