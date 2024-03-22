@@ -43,14 +43,41 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             // Enemies
 
-            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 20, 15, settings.NormalEnemyDamage));
-            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 31, 10, settings.FastEnemyDamage));
+            // Normal Enemies
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 15, 3, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 40, 4, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 35, 2, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 30, 5, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 23, 2, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 55, 1, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 63, 6, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 73, 7, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 85, 1, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 97, 3, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 107, 1, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 104, 5, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 115, 3, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 113, 16, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 114, 8, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 26, 17, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 60, 11, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 66, 18, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 95, 11, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 2, 18, settings.NormalEnemyDamage));
+
+            // Fast Enemies
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 28, 12, settings.FastEnemyDamage));
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 55, 16, settings.FastEnemyDamage));
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 90, 15, settings.FastEnemyDamage));
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 116, 12, settings.FastEnemyDamage));
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 15, 17, settings.FastEnemyDamage));
+
+            // Bouncing Enemies
             enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 70, 15, settings.StraightLineEnemyDamage));
-
-
-            // I gotta add 25 more :)
-
-
+            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 80, 12, settings.StraightLineEnemyDamage));
+            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 102, 17, settings.StraightLineEnemyDamage));
+            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 45, 17, settings.StraightLineEnemyDamage));
+            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 4, 13, settings.StraightLineEnemyDamage));
 
             // Setup HUD and gold collection
 

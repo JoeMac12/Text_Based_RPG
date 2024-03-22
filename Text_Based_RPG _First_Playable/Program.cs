@@ -6,11 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Text_Based_RPG__First_Playable.Classes;
 
-// TextBased RPG (Alpha)
+// TextBased RPG (Beta)
 // Made by Joseph
-// Last updated Feb 23rd, 2024
-
-// Now slightly better (Maybe)
+// Last updated March 22th, 2024
 
 namespace Text_Based_RPG__First_Playable
 {

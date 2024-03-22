@@ -11,7 +11,7 @@ namespace Text_Based_RPG__First_Playable.Classes
         public override string EnemyType => "StraightLine";
 
         private int direction;
-        private Random Srandom = new Random();
+        protected static Random Srandom = new Random(); // should fix enemies moving the same everytime
 
         public StraightLineEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage) // Initialize bouncing enemy
         {

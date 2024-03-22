@@ -47,7 +47,7 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
 
             // Bouncing Enemy
             StraightLineEnemyStartingHealth = 5;
-            StraightLineEnemyDamage = 4;
+            StraightLineEnemyDamage = 2;
         }
     }
 }
