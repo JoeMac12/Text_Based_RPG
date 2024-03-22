@@ -19,9 +19,9 @@ internal class HUD // Refence stuff
 
     public HUD(int startX, int startY, int height) // Main constructor
     {
-        this.hudStartPosX = startX;
-        this.hudStartPosY = startY;
-        this.hudHeight = height;
+        hudStartPosX = startX;
+        hudStartPosY = startY;
+        hudHeight = height;
     }
 
     public void SetPlayer(Player player) // set player info
@@ -42,34 +42,29 @@ internal class HUD // Refence stuff
     public void SetActionMessage(string message) // Update action message
     {
         actionMessage = message;
-        DisplayActionMessage();
     }
 
     public void Display() // Quick display
     {
         ClearHUD();
         DisplayStats();
-        DisplayActionMessage();
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY + hudHeight + actionMessageHeight);
+        Console.WriteLine(actionMessage);
     }
 
     private void DisplayStats() // Display game stats
     {
-        Console.SetCursorPosition(hudStartPosX, hudStartPosY); 
-
-        if (player != null) // Check not null just cause
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Player Health: {player.Health}"); // Player health
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"Player Shield: {player.Shield}"); // Player Shield
-            Console.ResetColor();
-        }
-
-        Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold
+        Console.SetCursorPosition(hudStartPosX, hudStartPosY);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"Player Health: {player.Health}");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"Player Shield: {player.Shield}");
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine($"Gold: {goldScore} / 10");
         Console.ResetColor();
 
-        if (lastEncounteredEnemy != null) // Again check for not null
+        if (lastEncounteredEnemy != null) // Check for not null
         {
             Console.ForegroundColor = GetEnemyColor(lastEncounteredEnemy);
             Console.WriteLine($"{lastEncounteredEnemy.GetType().Name} Health: {lastEncounteredEnemy.Health}"); // Only display last enemy touched / attacked
@@ -82,23 +77,20 @@ internal class HUD // Refence stuff
         if (enemy is FastEnemy) return ConsoleColor.Cyan;
         if (enemy is StraightLineEnemy) return ConsoleColor.Magenta;
         return ConsoleColor.Red; // Default for normal enemy
-    }
 
-    private void DisplayActionMessage() // Display the message
-    {
-        int actionMessageStartY = hudStartPosY + hudHeight + actionMessageHeight;
-        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
-        Console.Write(new string(' ', Console.WindowWidth));
-        Console.SetCursorPosition(hudStartPosX, actionMessageStartY);
-        Console.WriteLine(actionMessage);
     }
 
     public void ClearHUD() // Clear hud to prevent overlap
     {
         for (int i = 0; i < hudHeight + actionMessageHeight + 1; i++)
         {
-            Console.SetCursorPosition(hudStartPosX, hudStartPosY + i);
-            Console.Write(new string(' ', Console.WindowWidth));
+            ClearConsoleLine(hudStartPosY + i);
         }
+    }
+
+    private void ClearConsoleLine(int line)
+    {
+        Console.SetCursorPosition(hudStartPosX, line);
+        Console.Write(new string(' ', Console.WindowWidth));
     }
 }
