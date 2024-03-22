@@ -10,7 +10,7 @@ internal class GameState // Initialize
     private GoldCollection goldCollection;
     private bool isGameOver;
 
-    public GameState(Player player, Enemy enemy, GoldCollection goldCollection) // Main State
+    public GameState(Player player, GoldCollection goldCollection) // Main State
     {
         this.player = player;
         this.goldCollection = goldCollection;

@@ -8,6 +8,8 @@ namespace Text_Based_RPG__First_Playable.Classes
 {
     internal class StraightLineEnemy : Enemy // Base
     {
+        public override string EnemyType => "StraightLine";
+
         private int direction;
         private Random Srandom = new Random();
 

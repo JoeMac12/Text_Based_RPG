@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG__First_Playable.Classes
 {
-    internal class NormalEnemy : Enemy
+    internal class NormalEnemy : Enemy // Normal enemy
     {
+        public override string EnemyType => "Normal";
+
         public NormalEnemy(Map map, int initialHealth, int startX, int startY, int damage) : base(map, initialHealth, startX, startY, damage)
         {
         }
