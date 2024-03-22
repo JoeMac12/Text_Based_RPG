@@ -24,7 +24,7 @@ namespace Text_Based_RPG__First_Playable.Classes
                 if (Position == player.Position) // Attack Player
                 {
                     Attack(player, hud);
-                    hud.SetActionMessage($"You took {damage} damage from fast enemy");
+                    hud.SetActionMessage($"You took {damage} damage from fast enemy!");
                     break;
                 }
             }

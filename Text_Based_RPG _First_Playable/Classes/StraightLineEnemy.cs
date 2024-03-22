@@ -55,7 +55,7 @@ namespace Text_Based_RPG__First_Playable.Classes
                 if (newX == player.Position.x && newY == player.Position.y)
                 {
                     Attack(player, hud);
-                    hud.SetActionMessage($"You took {damage} damage from bouncing enemy");
+                    hud.SetActionMessage($"You took {damage} damage from straightline enemy!");
                 }
                 else
                 {

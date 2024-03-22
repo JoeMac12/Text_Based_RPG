@@ -12,6 +12,7 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int PlayerStartingShield { get; set; }
         public int PlayerStartingX { get; set; }
         public int PlayerStartingY { get; set; }
+        public int PlayerDamage { get; set; }
 
         public int HealthHealAmount { get; set; }
         public int ShieldRegenAmount { get; set; }
@@ -35,6 +36,7 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             PlayerStartingShield = 10;
             PlayerStartingX = 1;
             PlayerStartingY = 1;
+            PlayerDamage = 2;
 
             // Items
             HealthHealAmount = 5;
@@ -45,11 +47,11 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             NormalEnemyDamage = 2;
 
             // Fast Enemy
-            FastEnemyStartingHealth = 5;
+            FastEnemyStartingHealth = 6;
             FastEnemyDamage = 1;
 
             // Bouncing Enemy
-            StraightLineEnemyStartingHealth = 5;
+            StraightLineEnemyStartingHealth = 4;
             StraightLineEnemyDamage = 2;
 
             // World

@@ -85,8 +85,8 @@ internal class Player // Define
     {
         if (newX == enemy.Position.x && newY == enemy.Position.y && enemy.Health > 0)
         {
-            enemy.TakeDamage(1, hud);
-            hud.SetActionMessage("You dealt 1 damage to an enemy!");
+            enemy.TakeDamage(settings.PlayerDamage, hud);
+            hud.SetActionMessage($"Your dealt {settings.PlayerDamage} to the enemy!");
             hud.UpdateLastEncounteredEnemy(enemy); // Update hud with that enemy attacked
             return true;
         }

@@ -17,7 +17,7 @@ namespace Text_Based_RPG__First_Playable.Classes
         public override void Attack(Player player, HUD hud)
         {
             base.Attack(player, hud);
-            hud.SetActionMessage($"You took {damage} damage from a normal enemy");
+            hud.SetActionMessage($"You took {damage} damage from normal enemy!");
         }
     }
 }
