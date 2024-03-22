@@ -10,7 +10,7 @@ internal abstract class Enemy // This is the enemy "base" class, used to be norm
     public abstract string EnemyType { get; } // Used for setting enemy types for colors
     protected HealthSystem healthSystem;
     protected Map map;
-    protected Random random;
+    protected static Random random = new Random(); // should fix enemies moving the same everytime
     protected int damage;
 
     public Enemy(Map map, int initialHealth, int startX, int startY, int damage) // Base 
