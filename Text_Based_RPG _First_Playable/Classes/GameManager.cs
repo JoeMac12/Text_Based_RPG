@@ -29,11 +29,10 @@ namespace Text_Based_RPG__First_Playable.Classes
             map = new Map("mapArea.txt"); // Load map
             hud = new HUD(0, map.mapHeight + 2, 5); // Hud
             enemyManager = new EnemyManager(map, hud); // Enemy Manager
-           
 
-            // Initialize player and enemies
+             // Initialize player and enemies
 
-            player = new Player(map,
+             player = new Player(map,
                                 initialHealth: settings.PlayerStartingHealth,
                                 startX: settings.PlayerStartingX,
                                 startY: settings.PlayerStartingY,
@@ -44,9 +43,9 @@ namespace Text_Based_RPG__First_Playable.Classes
 
             // Enemies
 
-            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, settings.NormalEnemyStartingX, settings.NormalEnemyStartingY, settings.NormalEnemyDamage));
-            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, settings.FastEnemyStartingX, settings.FastEnemyStartingY, settings.FastEnemyDamage));
-            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, settings.StraightLineEnemyStartingX, settings.StraightLineEnemyStartingY, settings.StraightLineEnemyDamage));
+            enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 20, 15, settings.NormalEnemyDamage));
+            enemyManager.AddEnemy(new FastEnemy(map, settings.FastEnemyStartingHealth, 31, 10, settings.FastEnemyDamage));
+            enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 70, 15, settings.StraightLineEnemyDamage));
 
 
             // I gotta add 25 more :)
