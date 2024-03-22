@@ -105,8 +105,12 @@ internal class Player // Define
         switch (tile)
         {
             case '~': // Acid
-                TakeDamage(1);
-                hud.SetActionMessage("You stepped in acid and took 1 damage!");
+                TakeDamage(settings.AcidDmg);
+                hud.SetActionMessage($"Your stepped in acid and took {settings.AcidDmg} damage!");
+                break;
+            case '^': // Spikes
+                TakeDamage(settings.SpikeDmg);
+                hud.SetActionMessage($"Your stepped in spikes and took {settings.SpikeDmg} damage!");
                 break;
             case '$': // Shield
                 RegenerateShield(settings.ShieldRegenAmount);

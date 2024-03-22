@@ -121,6 +121,9 @@ internal class Map
             case '~':
                 Console.ForegroundColor = ConsoleColor.DarkGreen; // Acid
                 break;
+            case '^':
+                Console.ForegroundColor = ConsoleColor.DarkGray; // Spikes
+                break;
             case '#':
             case '|':
             case '-':

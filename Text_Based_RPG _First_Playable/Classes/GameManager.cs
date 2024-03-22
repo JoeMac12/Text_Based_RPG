@@ -124,8 +124,8 @@ namespace Text_Based_RPG__First_Playable.Classes
 
         private void EndGame() // End the game
         {
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
+            Console.WriteLine("(Press any key to exit the game)");
+            Console.ReadKey(true);
         }
     }
 }

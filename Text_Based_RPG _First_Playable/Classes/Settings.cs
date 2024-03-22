@@ -25,6 +25,9 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int StraightLineEnemyStartingHealth { get; set; }
         public int StraightLineEnemyDamage { get; set; }
 
+        public int AcidDmg { get; set; }
+        public int SpikeDmg { get; set; }
+
         public Settings() // Source Editor
         {
             // Player
@@ -34,8 +37,8 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             PlayerStartingY = 1;
 
             // Items
-            HealthHealAmount = 5; 
-            ShieldRegenAmount = 5; 
+            HealthHealAmount = 5;
+            ShieldRegenAmount = 5;
 
             // Normal Enemy
             NormalEnemyStartingHealth = 10;
@@ -48,6 +51,10 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             // Bouncing Enemy
             StraightLineEnemyStartingHealth = 5;
             StraightLineEnemyDamage = 2;
+
+            // World
+            AcidDmg = 1;
+            SpikeDmg = 8;
         }
     }
 }
