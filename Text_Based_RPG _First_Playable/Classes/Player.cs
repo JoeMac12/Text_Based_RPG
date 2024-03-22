@@ -108,7 +108,7 @@ internal class Player // Define
                 TakeDamage(1);
                 hud.SetActionMessage("You stepped in acid and took 1 damage!");
                 break;
-            case '♜': // Shield
+            case '$': // Shield
                 RegenerateShield(settings.ShieldRegenAmount);
                 map.map[y, x] = '.';
                 hud.SetActionMessage($"Your shield has been increased by {settings.ShieldRegenAmount} HP!");

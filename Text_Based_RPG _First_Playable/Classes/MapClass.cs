@@ -112,7 +112,7 @@ internal class Map
             case '♥':
                 Console.ForegroundColor = ConsoleColor.Green; // Health item
                 break;
-            case '♜':
+            case '$':
                 Console.ForegroundColor = ConsoleColor.Cyan; // Shield item
                 break;
             case '.':
