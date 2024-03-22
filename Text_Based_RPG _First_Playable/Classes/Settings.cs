@@ -12,21 +12,22 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int PlayerStartingShield { get; set; }
         public int PlayerStartingX { get; set; }
         public int PlayerStartingY { get; set; }
+        public int PlayerDamage { get; set; }
 
-        public int EnemyStartingHealth { get; set; }
-        public int EnemyStartingX { get; set; }
-        public int EnemyStartingY { get; set; }
-        public int EnemyDamage { get; set; }
+        public int HealthHealAmount { get; set; }
+        public int ShieldRegenAmount { get; set; }
+
+        public int NormalEnemyStartingHealth { get; set; }
+        public int NormalEnemyDamage { get; set; }
 
         public int FastEnemyStartingHealth { get; set; }
-        public int FastEnemyStartingX { get; set; }
-        public int FastEnemyStartingY { get; set; }
         public int FastEnemyDamage { get; set; }
 
         public int StraightLineEnemyStartingHealth { get; set; }
-        public int StraightLineEnemyStartingX { get; set; }
-        public int StraightLineEnemyStartingY { get; set; }
         public int StraightLineEnemyDamage { get; set; }
+
+        public int AcidDmg { get; set; }
+        public int SpikeDmg { get; set; }
 
         public Settings() // Source Editor
         {
@@ -35,24 +36,27 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             PlayerStartingShield = 10;
             PlayerStartingX = 1;
             PlayerStartingY = 1;
+            PlayerDamage = 2;
 
-            // Basic Enemy
-            EnemyStartingHealth = 10;
-            EnemyStartingX = 20;
-            EnemyStartingY = 15;
-            EnemyDamage = 2;
+            // Items
+            HealthHealAmount = 5;
+            ShieldRegenAmount = 5;
+
+            // Normal Enemy
+            NormalEnemyStartingHealth = 10;
+            NormalEnemyDamage = 2;
 
             // Fast Enemy
-            FastEnemyStartingHealth = 5;
-            FastEnemyStartingX = 31;
-            FastEnemyStartingY = 10;
+            FastEnemyStartingHealth = 6;
             FastEnemyDamage = 1;
 
             // Bouncing Enemy
-            StraightLineEnemyStartingHealth = 5;
-            StraightLineEnemyStartingX = 70;
-            StraightLineEnemyStartingY = 15;
-            StraightLineEnemyDamage = 4;
+            StraightLineEnemyStartingHealth = 4;
+            StraightLineEnemyDamage = 2;
+
+            // World
+            AcidDmg = 1;
+            SpikeDmg = 8;
         }
     }
 }

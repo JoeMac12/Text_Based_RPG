@@ -5,76 +5,75 @@ using System.Text;
 using System.Threading.Tasks;
 using Text_Based_RPG__First_Playable.Classes;
 
-internal class Player
+internal class Player // Define
 {
     public (int x, int y) Position { get; private set; }
     private HealthSystem healthSystem;
+    private Settings settings;
     private Map map;
 
-    public bool HasMoved { get; set; }
+    public bool HasMoved { get; set; } // For moving checking
 
-    public Player(Map map, int initialHealth, int startX, int startY, int initialShield = 0) // Initialize the player
+    public Player(Map map, int initialHealth, int startX, int startY, int initialShield, Settings settings) // Initialize the player
     {
         this.map = map;
+        this.settings = settings;
         Position = (startX, startY);
         healthSystem = new HealthSystem(initialHealth, initialShield);
         HasMoved = false;
     }
 
-    public void HandleMovement(ConsoleKeyInfo keyInfo, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy)
+    public void HandleMovement(ConsoleKeyInfo keyInfo, HUD hud, EnemyManager enemyManager) // Handle player movement here instead of game manager class
     {
         int moveX = 0, moveY = 0;
 
         switch (keyInfo.Key)
         {
-            case ConsoleKey.W: // Up
-            case ConsoleKey.UpArrow:
+            case ConsoleKey.W:
+            case ConsoleKey.UpArrow: // Up
                 moveY = -1;
                 break;
-            case ConsoleKey.S: // Down
-            case ConsoleKey.DownArrow:
+            case ConsoleKey.S:
+            case ConsoleKey.DownArrow: // Down
                 moveY = 1;
                 break;
-            case ConsoleKey.A: // Left
-            case ConsoleKey.LeftArrow:
+            case ConsoleKey.A:
+            case ConsoleKey.LeftArrow: // Left
                 moveX = -1;
                 break;
-            case ConsoleKey.D: // Right
-            case ConsoleKey.RightArrow:
+            case ConsoleKey.D:
+            case ConsoleKey.RightArrow: // Right
                 moveX = 1;
                 break;
         }
 
-        Move(moveX, moveY, hud, enemy, fastEnemy, straightLineEnemy);
-
-        while (Console.KeyAvailable)
+        while (Console.KeyAvailable) // Clear key buffer 
         {
             Console.ReadKey(true);
         }
+
+        Move(moveX, moveY, hud, enemyManager);
     }
 
-    public void Move(int moveX, int moveY, HUD hud, Enemy enemy, FastEnemy fastEnemy, StraightLineEnemy straightLineEnemy) // Main player move method
+    public void Move(int moveX, int moveY, HUD hud, EnemyManager enemyManager) // Movement method
     {
         int newX = Position.x + moveX;
         int newY = Position.y + moveY;
 
-        // Attempt attacking the enemies
-
-        bool enemyAttacked = CheckCollisionAndAttack(newX, newY, enemy, hud, "You dealt 1 damage to the enemy!") ||
-                             CheckCollisionAndAttack(newX, newY, fastEnemy, hud, "You dealt 1 damage to the fast enemy!") ||
-                             CheckCollisionAndAttack(newX, newY, straightLineEnemy, hud, "You dealt 1 damage to the bouncing enemy!");
-
-        if (enemyAttacked) // Prevent moving if an enemy is attacked
+        foreach (var enemy in enemyManager.Enemies) // Check for collisions with any enemy
         {
-            HasMoved = true; // Trigger move when attacking
-            return; // Don't move while attacking
+            if (CheckCollisionAndAttack(newX, newY, enemy, hud))
+            {
+                HasMoved = true;
+                return; // Stop checking if attacked an enemy
+            }
         }
 
         if (map.WithinBounds(newX, newY) && CanMove(newX, newY)) // Make player move if not attacking and the move is valid
         {
-            Position = (newX, newY); // Update player position
+            Position = (newX, newY);
             HasMoved = true;
-            CheckTile(hud, newX, newY); // Check the current tile
+            CheckTile(hud, newX, newY); // Check tile
         }
         else
         {
@@ -82,15 +81,16 @@ internal class Player
         }
     }
 
-    private bool CheckCollisionAndAttack(int newX, int newY, Enemy enemy, HUD hud, string message) // Check enemy collison and attack if possible
+    private bool CheckCollisionAndAttack(int newX, int newY, Enemy enemy, HUD hud) // Check collisions 
     {
         if (newX == enemy.Position.x && newY == enemy.Position.y && enemy.Health > 0)
         {
-            enemy.TakeDamage(1, hud);
-            hud.SetActionMessage(message);
-            return true; // Set to true if encountered and attacked a enemy
+            enemy.TakeDamage(settings.PlayerDamage, hud);
+            hud.SetActionMessage($"Your dealt {settings.PlayerDamage} to the enemy!");
+            hud.UpdateLastEncounteredEnemy(enemy); // Update hud with that enemy attacked
+            return true;
         }
-        return false; // No enemy was encountered
+        return false;
     }
 
     private bool CanMove(int x, int y) // Check if can move
@@ -105,38 +105,44 @@ internal class Player
         switch (tile)
         {
             case '~': // Acid
-                TakeDamage(1);
-                hud.SetActionMessage("You stepped in acid and took 1 damage!");
+                TakeDamage(settings.AcidDmg);
+                hud.SetActionMessage($"Your stepped in acid and took {settings.AcidDmg} damage!");
                 break;
-            case '♜': // Shield
-                RegenerateShield(5);
-                map.map[y, x] = '.'; // Replace with floor
-                hud.SetActionMessage("Your shield has been increased by 5 HP!");
+            case '^': // Spikes
+                TakeDamage(settings.SpikeDmg);
+                hud.SetActionMessage($"Your stepped in spikes and took {settings.SpikeDmg} damage!");
+                break;
+            case '$': // Shield
+                RegenerateShield(settings.ShieldRegenAmount);
+                map.map[y, x] = '.';
+                hud.SetActionMessage($"Your shield has been increased by {settings.ShieldRegenAmount} HP!");
                 break;
             case '♥': // Health
-                RegenerateHealth(5);
-                map.map[y, x] = '.'; // Replace with floor
-                hud.SetActionMessage("Your health has been increased by 5 HP!");
+                RegenerateHealth(settings.HealthHealAmount);
+                map.map[y, x] = '.';
+                hud.SetActionMessage($"Your health has been increased by {settings.HealthHealAmount} HP!");
                 break;
             case '♦': // Teleport
                 TeleportRandomly();
-                map.map[y, x] = '.'; // Replace with floor
+                map.map[y, x] = '.';
                 hud.SetActionMessage("You have been teleported to a random location!");
                 break;
         }
     }
 
-    public void TakeDamage(int amount) // Take Damage via Health System
+    // Use health system for these
+
+    public void TakeDamage(int amount) // Take damage
     {
         healthSystem.TakeDamage(amount);
     }
 
-    public void RegenerateShield(int amount) // Regen Shield via Health System
+    public void RegenerateShield(int amount) // Regen shield
     {
         healthSystem.AddShield(amount);
     }
 
-    public void RegenerateHealth(int amount) // Regen Health via Health System
+    public void RegenerateHealth(int amount) // Regen health
     {
         healthSystem.AddHealth(amount);
     }

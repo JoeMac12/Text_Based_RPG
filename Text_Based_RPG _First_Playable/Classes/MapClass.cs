@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Text_Based_RPG__First_Playable.Classes;
 
 internal class Map
 {
@@ -32,47 +33,58 @@ internal class Map
         }
     }
 
-    public void DisplayMap((int, int) playerPosition, (int, int) enemyPosition, int enemyHealth, (int, int) fastEnemyPosition, int fastEnemyHealth, (int, int) straightLineEnemyPosition, int straightLineEnemyHealth, int startX, int startY) // Display map and everything else on it
+    public void DisplayMap((int, int) playerPosition, EnemyManager enemyManager, int startX, int startY) // Display map and everything
     {
-        Console.SetCursorPosition(startX, startY); // Keep it clear
-        DrawBorder(); // Start drawing the border
+        Console.SetCursorPosition(startX, startY);
+        DrawBorder();
 
         for (int i = 0; i < mapHeight; i++)
         {
             Console.Write("|");
             for (int j = 0; j < mapWidth; j++)
             {
-                if (i == playerPosition.Item2 && j == playerPosition.Item1)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write('█'); // Player icon
-                }
-                else if (i == straightLineEnemyPosition.Item2 && j == straightLineEnemyPosition.Item1 && straightLineEnemyHealth > 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    Console.Write('█'); // Straight Line Enemy icon
-                }
-                else if (i == fastEnemyPosition.Item2 && j == fastEnemyPosition.Item1 && fastEnemyHealth > 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write('█'); // Fast Enemy icon
-                }
-                else if (i == enemyPosition.Item2 && j == enemyPosition.Item1 && enemyHealth > 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write('█'); // Enemy icon
-                }
-                else
-                {
-                    SetTextColor(map[i, j]); // Set the tile colors
-                    Console.Write(map[i, j]);
-                }
+                char displayChar = GetDisplayCharForPosition(j, i, playerPosition, enemyManager);
+                SetTextColor(displayChar);
+                Console.Write(displayChar);
                 Console.ResetColor();
             }
             Console.WriteLine("|");
         }
 
-        DrawBorder(); // Other border
+        DrawBorder();
+    }
+
+    private char GetDisplayCharForPosition(int x, int y, (int, int) playerPosition, EnemyManager enemyManager) // Define icons and apply correct matching
+    {
+        if (x == playerPosition.Item1 && y == playerPosition.Item2)
+        {
+            Console.ForegroundColor = ConsoleColor.Green; // player
+            return '█';
+        }
+
+        foreach (var enemy in enemyManager.Enemies) // Enemies
+        {
+            if (x == enemy.Position.x && y == enemy.Position.y && enemy.Health > 0)
+            {
+                switch (enemy.EnemyType) // Set color based on enemy type
+                {
+                    case "Normal":
+                        Console.ForegroundColor = ConsoleColor.Red; // Normal
+                        break;
+                    case "Fast":
+                        Console.ForegroundColor = ConsoleColor.Cyan; // Fast
+                        break;
+                    case "StraightLine":
+                        Console.ForegroundColor = ConsoleColor.Yellow; // Bouncing 
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.White; // Default 
+                        break;
+                }
+                return '█'; // Enemy icon
+            }
+        }
+        return map[y, x];
     }
 
     private void DrawBorder() // Draw border method
@@ -100,7 +112,7 @@ internal class Map
             case '♥':
                 Console.ForegroundColor = ConsoleColor.Green; // Health item
                 break;
-            case '♜':
+            case '$':
                 Console.ForegroundColor = ConsoleColor.Cyan; // Shield item
                 break;
             case '.':
@@ -109,16 +121,18 @@ internal class Map
             case '~':
                 Console.ForegroundColor = ConsoleColor.DarkGreen; // Acid
                 break;
+            case '^':
+                Console.ForegroundColor = ConsoleColor.DarkGray; // Spikes
+                break;
             case '#':
             case '|':
             case '-':
-                Console.ForegroundColor = ConsoleColor.DarkRed; // Walls
+                Console.ForegroundColor = ConsoleColor.Magenta; // Walls
                 break;
             case 'Θ':
                 Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold
                 break;
             default:
-                Console.ResetColor();
                 break;
         }
     }

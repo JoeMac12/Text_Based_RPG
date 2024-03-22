@@ -10,7 +10,7 @@ internal class GameState // Initialize
     private GoldCollection goldCollection;
     private bool isGameOver;
 
-    public GameState(Player player, Enemy enemy, GoldCollection goldCollection) // Main State
+    public GameState(Player player, GoldCollection goldCollection) // Main State
     {
         this.player = player;
         this.goldCollection = goldCollection;
@@ -28,8 +28,10 @@ internal class GameState // Initialize
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("You have collected all 10 gold coins!");
-            Console.WriteLine("You win!");
+            Console.WriteLine("Congratulations!");
+            Console.WriteLine();
+            Console.WriteLine("You have successfully collected all 10 gold while surviving!");
+            Console.WriteLine();
             Console.ResetColor();
             isGameOver = true;
         }
@@ -41,7 +43,8 @@ internal class GameState // Initialize
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("You have Died");
+            Console.WriteLine("You have died!");
+            Console.WriteLine();
             Console.ResetColor();
             isGameOver = true;
         }
