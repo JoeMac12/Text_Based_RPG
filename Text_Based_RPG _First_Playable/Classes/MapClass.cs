@@ -75,7 +75,7 @@ internal class Map
                         Console.ForegroundColor = ConsoleColor.Cyan; // Fast
                         break;
                     case "StraightLine":
-                        Console.ForegroundColor = ConsoleColor.Magenta; // Bouncing 
+                        Console.ForegroundColor = ConsoleColor.Yellow; // Bouncing 
                         break;
                     default:
                         Console.ForegroundColor = ConsoleColor.White; // Default 
@@ -124,7 +124,7 @@ internal class Map
             case '#':
             case '|':
             case '-':
-                Console.ForegroundColor = ConsoleColor.DarkRed; // Walls
+                Console.ForegroundColor = ConsoleColor.Magenta; // Walls
                 break;
             case 'Θ':
                 Console.ForegroundColor = ConsoleColor.DarkYellow; // Gold

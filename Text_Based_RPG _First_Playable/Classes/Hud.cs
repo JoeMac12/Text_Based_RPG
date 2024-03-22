@@ -75,7 +75,7 @@ internal class HUD // Refence stuff
     private ConsoleColor GetEnemyColor(Enemy enemy) // Setting enemy colors
     {
         if (enemy is FastEnemy) return ConsoleColor.Cyan;
-        if (enemy is StraightLineEnemy) return ConsoleColor.Magenta;
+        if (enemy is StraightLineEnemy) return ConsoleColor.Yellow;
         return ConsoleColor.Red; // Default for normal enemy
 
     }
