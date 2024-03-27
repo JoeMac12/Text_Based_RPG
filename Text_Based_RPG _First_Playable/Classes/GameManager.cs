@@ -39,9 +39,9 @@ namespace Text_Based_RPG__First_Playable.Classes
                                 initialShield: settings.PlayerStartingShield,
                                 settings);
 
-            hud.SetPlayer(player); // Set hud stats for player
+            hud.SetPlayer(player); // Initialize hud stats for player
 
-            // Enemies
+            // Initialize Enemies
 
             // Normal Enemies
             enemyManager.AddEnemy(new NormalEnemy(map, settings.NormalEnemyStartingHealth, 15, 3, settings.NormalEnemyDamage));
@@ -79,7 +79,7 @@ namespace Text_Based_RPG__First_Playable.Classes
             enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 45, 17, settings.StraightLineEnemyDamage));
             enemyManager.AddEnemy(new StraightLineEnemy(map, settings.StraightLineEnemyStartingHealth, 4, 13, settings.StraightLineEnemyDamage));
 
-            // Setup HUD and gold collection
+            // Initialize HUD and gold collection
 
             goldCollection = new GoldCollection(map, hud);
 
