@@ -99,7 +99,7 @@ internal class Player // Define
         return tile != '#' && tile != '|' && tile != '-';
     }
 
-    private void CheckTile(HUD hud, int x, int y) // Check for special tiles and items
+    private void CheckTile(HUD hud, int x, int y) // Check for special tiles 
     {
         char tile = map.map[y, x];
         switch (tile)
@@ -112,25 +112,10 @@ internal class Player // Define
                 TakeDamage(settings.SpikeDmg);
                 hud.SetActionMessage($"Your stepped in spikes and took {settings.SpikeDmg} damage!");
                 break;
-            case '$': // Shield
-                RegenerateShield(settings.ShieldRegenAmount);
-                map.map[y, x] = '.';
-                hud.SetActionMessage($"Your shield has been increased by {settings.ShieldRegenAmount} HP!");
-                break;
-            case '♥': // Health
-                RegenerateHealth(settings.HealthHealAmount);
-                map.map[y, x] = '.';
-                hud.SetActionMessage($"Your health has been increased by {settings.HealthHealAmount} HP!");
-                break;
-            case '♦': // Teleport
-                TeleportRandomly();
-                map.map[y, x] = '.';
-                hud.SetActionMessage("You have been teleported to a random location!");
-                break;
         }
     }
 
-    // Use health system for these
+    // Use health system for these (Not really needed but still use it)
 
     public void TakeDamage(int amount) // Take damage
     {

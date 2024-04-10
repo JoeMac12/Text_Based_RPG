@@ -16,6 +16,7 @@ namespace Text_Based_RPG__First_Playable.Classes
         private GameState gameState;
         private Settings settings;
         private EnemyManager enemyManager;
+        private ItemManager itemManager;
 
         private int mapStartPosX;
         private int mapStartPosY;
@@ -32,6 +33,9 @@ namespace Text_Based_RPG__First_Playable.Classes
             map = new Map("mapArea.txt"); // Initialize and Load map
             hud = new HUD(0, map.mapHeight + 2, 5);
             enemyManager = new EnemyManager(map, hud, settings); // Enemy manager and initialize enemies
+
+            itemManager = new ItemManager(map, hud, settings);
+            itemManager.SpawnItems(5, 3, 2); // Number of items of each type to spawn on the map randomly (Health, Shield, Teleport) Todo - remove manually placed items on map
 
             // Initialize player
             player = new Player(map, 
@@ -68,6 +72,7 @@ namespace Text_Based_RPG__First_Playable.Classes
             }
 
             goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup
+            itemManager.CheckForItemPickup(player); // Check for item pickup
             gameState.Update(); // Update the game state each movement
         }
 
