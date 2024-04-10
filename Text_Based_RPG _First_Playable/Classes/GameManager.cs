@@ -17,65 +17,72 @@ namespace Text_Based_RPG__First_Playable.Classes
         private Settings settings;
         private EnemyManager enemyManager;
 
-        public GameManager() // Main
+        private int mapStartPosX;
+        private int mapStartPosY;
+
+        public GameManager() // Main 
         {
             Console.CursorVisible = false;
             settings = new Settings();
-            InitializeGame();
+            Init();
         }
 
-        private void InitializeGame() // Initialize the game 
+        private void Init() // Initialize the game 
         {
-            map = new Map("mapArea.txt"); // Load map
-            hud = new HUD(0, map.mapHeight + 2, 5); // Hud
-            enemyManager = new EnemyManager(map, hud, settings); // Enemy Manager
+            map = new Map("mapArea.txt"); // Initialize and Load map
+            hud = new HUD(0, map.mapHeight + 2, 5);
+            enemyManager = new EnemyManager(map, hud, settings); // Enemy manager and initialize enemies
 
-             // Initialize player and enemies
-
-             player = new Player(map,
-                                initialHealth: settings.PlayerStartingHealth,
-                                startX: settings.PlayerStartingX,
-                                startY: settings.PlayerStartingY,
-                                initialShield: settings.PlayerStartingShield,
-                                settings);
+            // Initialize player
+            player = new Player(map, 
+                initialHealth: settings.PlayerStartingHealth, 
+                startX: settings.PlayerStartingX, 
+                startY: settings.PlayerStartingY, 
+                initialShield: settings.PlayerStartingShield, 
+                settings); 
 
             hud.SetPlayer(player); // Initialize hud stats for player
-
-
-
             goldCollection = new GoldCollection(map, hud); // Initialize HUD and gold collection
             gameState = new GameState(player, goldCollection); // Initialize game state
+
+            mapStartPosX = Console.CursorLeft;
+            mapStartPosY = Console.CursorTop;
+        }
+
+        private void Draw() // Display game elements
+        {
+            map.DisplayMap(player.Position, enemyManager, mapStartPosX, mapStartPosY); // Display the whole map with everything on it
+            hud.ClearHUD();
+            hud.Display();
+        }
+
+        private void Update() // Update game
+        {
+            player.HasMoved = false;
+
+            PlayerMovement(); // Move Player
+
+            if (player.HasMoved)
+            {
+                enemyManager.UpdateAll(player); // Move all enemies
+            }
+
+            goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup
+            gameState.Update(); // Update the game state each movement
         }
 
         public void StartGameLoop() // Main game loop
         {
-            int mapStartPosX = Console.CursorLeft; // For keeping things tidy
-            int mapStartPosY = Console.CursorTop;
-
             while (!gameState.IsGameOver) // While game is active
             {
-                map.DisplayMap(player.Position, enemyManager, mapStartPosX, mapStartPosY); // Display the whole map with everything on it
-                hud.ClearHUD();
-                hud.Display();
-
-                player.HasMoved = false; // Set to false at the start of the game
-
-                PlayerMovement(); // Call player movement
-
-                if (player.HasMoved)
-                {
-                    enemyManager.UpdateAll(player); // Move all enemies
-                }
-
-                goldCollection.CheckForGold(player.Position.x, player.Position.y); // Check for gold pickup
-
-                gameState.Update(); // Update the game state each movement
+                Draw();
+                Update();
             }
 
-            EndGame(); // End the game Win or Lose
+            EndGame(); // End the game Win or Lose based on state
         }
 
-        private void PlayerMovement() // Grab from player class now
+        private void PlayerMovement() // Grab from player class
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             player.HandleMovement(keyInfo, hud, enemyManager);
