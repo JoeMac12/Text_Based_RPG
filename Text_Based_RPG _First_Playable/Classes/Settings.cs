@@ -51,18 +51,9 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
                     // Copy settings
                     ApplySettings(jsonSettings);
                 }
-
-                // If something breaks or no json file is used, just use default settings
-
-                else
-                {
-                    Console.WriteLine("Settings file not found. Using default settings.");
-                }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Error loading settings: {ex.Message}");
-                Console.WriteLine("Using default settings.");
             }
         }
 
