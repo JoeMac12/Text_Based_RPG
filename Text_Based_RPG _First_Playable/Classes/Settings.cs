@@ -35,61 +35,64 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
 
         public Settings()
         {
-            LoadSettings();
+            LoadDefaultSettings();
+            LoadData();
         }
 
-        private void LoadSettings()
+        private void LoadData()
         {
             try
             {
                 if (File.Exists(Game_Settings))
                 {
                     string jsonString = File.ReadAllText(Game_Settings);
-                    var settings = JsonSerializer.Deserialize<GameSettingsJson>(jsonString);
+                    var jsonSettings = JsonSerializer.Deserialize<SettingsData>(jsonString);
 
-                    // Class properties
-                    PlayerStartingHealth = settings.player.startingHealth;
-                    PlayerStartingShield = settings.player.startingShield;
-                    PlayerStartingX = settings.player.startingPosition.x;
-                    PlayerStartingY = settings.player.startingPosition.y;
-                    PlayerDamage = settings.player.damage;
-
-                    HealthHealAmount = settings.items.healthHealAmount;
-                    ShieldRegenAmount = settings.items.shieldRegenAmount;
-
-                    NormalEnemyStartingHealth = settings.enemies.normal.startingHealth;
-                    NormalEnemyDamage = settings.enemies.normal.damage;
-
-                    FastEnemyStartingHealth = settings.enemies.fast.startingHealth;
-                    FastEnemyDamage = settings.enemies.fast.damage;
-
-                    StraightLineEnemyStartingHealth = settings.enemies.straightLine.startingHealth;
-                    StraightLineEnemyDamage = settings.enemies.straightLine.damage;
-
-                    AcidDmg = settings.world.acidDamage;
-                    SpikeDmg = settings.world.spikeDamage;
+                    // Copy settings
+                    ApplySettings(jsonSettings);
                 }
 
                 // If something breaks or no json file is used, just use default settings
 
                 else
                 {
-                    Console.WriteLine("JSON file settings not found. Using default settings.");
-                    LoadDefaultSettings();
+                    Console.WriteLine("Settings file not found. Using default settings.");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading settings: {ex.Message}");
                 Console.WriteLine("Using default settings.");
-                LoadDefaultSettings();
             }
+        }
+
+        private void ApplySettings(SettingsData settings)
+        {
+            // Default settings
+            PlayerStartingHealth = settings.PlayerStartingHealth;
+            PlayerStartingShield = settings.PlayerStartingShield;
+            PlayerStartingX = settings.PlayerStartingX;
+            PlayerStartingY = settings.PlayerStartingY;
+            PlayerDamage = settings.PlayerDamage;
+
+            HealthHealAmount = settings.HealthHealAmount;
+            ShieldRegenAmount = settings.ShieldRegenAmount;
+
+            NormalEnemyStartingHealth = settings.NormalEnemyStartingHealth;
+            NormalEnemyDamage = settings.NormalEnemyDamage;
+
+            FastEnemyStartingHealth = settings.FastEnemyStartingHealth;
+            FastEnemyDamage = settings.FastEnemyDamage;
+
+            StraightLineEnemyStartingHealth = settings.StraightLineEnemyStartingHealth;
+            StraightLineEnemyDamage = settings.StraightLineEnemyDamage;
+
+            AcidDmg = settings.AcidDmg;
+            SpikeDmg = settings.SpikeDmg;
         }
 
         private void LoadDefaultSettings()
         {
-            // Default settings if no JSON
-
             // Player
             PlayerStartingHealth = 20;
             PlayerStartingShield = 10;
@@ -119,51 +122,28 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         }
     }
 
-    // Classes for JSON
-    class GameSettingsJson
+    // Settings data
+    class SettingsData
     {
-        public PlayerSettings player { get; set; }
-        public ItemSettings items { get; set; }
-        public EnemySettings enemies { get; set; }
-        public WorldSettings world { get; set; }
-    }
+        public int PlayerStartingHealth { get; set; }
+        public int PlayerStartingShield { get; set; }
+        public int PlayerStartingX { get; set; }
+        public int PlayerStartingY { get; set; }
+        public int PlayerDamage { get; set; }
 
-    class PlayerSettings
-    {
-        public int startingHealth { get; set; }
-        public int startingShield { get; set; }
-        public Position startingPosition { get; set; }
-        public int damage { get; set; }
-    }
+        public int HealthHealAmount { get; set; }
+        public int ShieldRegenAmount { get; set; }
 
-    class Position
-    {
-        public int x { get; set; }
-        public int y { get; set; }
-    }
+        public int NormalEnemyStartingHealth { get; set; }
+        public int NormalEnemyDamage { get; set; }
 
-    class ItemSettings
-    {
-        public int healthHealAmount { get; set; }
-        public int shieldRegenAmount { get; set; }
-    }
+        public int FastEnemyStartingHealth { get; set; }
+        public int FastEnemyDamage { get; set; }
 
-    class EnemySettings
-    {
-        public EnemyTypeSettings normal { get; set; }
-        public EnemyTypeSettings fast { get; set; }
-        public EnemyTypeSettings straightLine { get; set; }
-    }
+        public int StraightLineEnemyStartingHealth { get; set; }
+        public int StraightLineEnemyDamage { get; set; }
 
-    class EnemyTypeSettings
-    {
-        public int startingHealth { get; set; }
-        public int damage { get; set; }
-    }
-
-    class WorldSettings
-    {
-        public int acidDamage { get; set; }
-        public int spikeDamage { get; set; }
+        public int AcidDmg { get; set; }
+        public int SpikeDmg { get; set; }
     }
 }
