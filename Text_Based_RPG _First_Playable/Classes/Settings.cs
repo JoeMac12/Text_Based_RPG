@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 namespace Text_Based_RPG__First_Playable.Classes // Define everything
 {
@@ -29,8 +31,65 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
         public int AcidDmg { get; set; }
         public int SpikeDmg { get; set; }
 
-        public Settings() // Source Editor
+        private const string Game_Settings = "game_settings.json";
+
+        public Settings()
         {
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            try
+            {
+                if (File.Exists(Game_Settings))
+                {
+                    string jsonString = File.ReadAllText(Game_Settings);
+                    var settings = JsonSerializer.Deserialize<GameSettingsJson>(jsonString);
+
+                    // Class properties
+                    PlayerStartingHealth = settings.player.startingHealth;
+                    PlayerStartingShield = settings.player.startingShield;
+                    PlayerStartingX = settings.player.startingPosition.x;
+                    PlayerStartingY = settings.player.startingPosition.y;
+                    PlayerDamage = settings.player.damage;
+
+                    HealthHealAmount = settings.items.healthHealAmount;
+                    ShieldRegenAmount = settings.items.shieldRegenAmount;
+
+                    NormalEnemyStartingHealth = settings.enemies.normal.startingHealth;
+                    NormalEnemyDamage = settings.enemies.normal.damage;
+
+                    FastEnemyStartingHealth = settings.enemies.fast.startingHealth;
+                    FastEnemyDamage = settings.enemies.fast.damage;
+
+                    StraightLineEnemyStartingHealth = settings.enemies.straightLine.startingHealth;
+                    StraightLineEnemyDamage = settings.enemies.straightLine.damage;
+
+                    AcidDmg = settings.world.acidDamage;
+                    SpikeDmg = settings.world.spikeDamage;
+                }
+
+                // If something breaks or no json file is used, just use default settings
+
+                else
+                {
+                    Console.WriteLine("JSON file settings not found. Using default settings.");
+                    LoadDefaultSettings();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading settings: {ex.Message}");
+                Console.WriteLine("Using default settings.");
+                LoadDefaultSettings();
+            }
+        }
+
+        private void LoadDefaultSettings()
+        {
+            // Default settings if no JSON
+
             // Player
             PlayerStartingHealth = 20;
             PlayerStartingShield = 10;
@@ -59,5 +118,52 @@ namespace Text_Based_RPG__First_Playable.Classes // Define everything
             SpikeDmg = 8;
         }
     }
-}
 
+    // Classes for JSON
+    class GameSettingsJson
+    {
+        public PlayerSettings player { get; set; }
+        public ItemSettings items { get; set; }
+        public EnemySettings enemies { get; set; }
+        public WorldSettings world { get; set; }
+    }
+
+    class PlayerSettings
+    {
+        public int startingHealth { get; set; }
+        public int startingShield { get; set; }
+        public Position startingPosition { get; set; }
+        public int damage { get; set; }
+    }
+
+    class Position
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+    }
+
+    class ItemSettings
+    {
+        public int healthHealAmount { get; set; }
+        public int shieldRegenAmount { get; set; }
+    }
+
+    class EnemySettings
+    {
+        public EnemyTypeSettings normal { get; set; }
+        public EnemyTypeSettings fast { get; set; }
+        public EnemyTypeSettings straightLine { get; set; }
+    }
+
+    class EnemyTypeSettings
+    {
+        public int startingHealth { get; set; }
+        public int damage { get; set; }
+    }
+
+    class WorldSettings
+    {
+        public int acidDamage { get; set; }
+        public int spikeDamage { get; set; }
+    }
+}

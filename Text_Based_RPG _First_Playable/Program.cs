@@ -8,7 +8,7 @@ using Text_Based_RPG__First_Playable.Classes;
 
 // TextBased RPG (Beta)
 // Made by Joseph
-// Last updated April 10th, 2024
+// Last updated Nov 1st, 2024
 
 namespace Text_Based_RPG__First_Playable
 {
